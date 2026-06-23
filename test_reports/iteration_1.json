@@ -1,0 +1,44 @@
+{
+  "summary": "First-finish smoke test on SpardhaHub landing MVP. Backend (4/4 endpoints) and frontend (15/17 checks) pass. Two minor findings: HTML5 type=\"email\" intercepts invalid-email submit so the sonner error toast never fires (browser shows native tooltip instead); navbar mobile testids in code are nav-mobile-toggle/nav-mobile-menu (spec asked for mobile-menu-toggle/mobile-menu) — testid naming discrepancy only, functionality works.",
+  "tested_scope": ["backend", "frontend", "integration"],
+  "passed": [
+    "GET /api/ -> 200 with SpardhaHub message + tagline",
+    "POST /api/signup valid email -> 200 with id+email+message",
+    "POST /api/signup same email twice idempotent -> same id, message 'already on the list'",
+    "POST /api/signup invalid email -> 422 with pydantic detail",
+    "GET /api/signup/count grew 1 -> 2 after new signup",
+    "Landing page loads with zero console errors",
+    "Hero headline 'Crack UPSC, MPSC, CA & More' rendered with gold gradient on key words (data-testid=hero-headline)",
+    "Subheadline contains 'Personalized roadmaps', 'Live vacancy tracker', 'AI-powered study planner'",
+    "Countdown cards UPSC/MPSC/SSC all visible with Days/Hrs/Min/Sec values rendering (2026 dates)",
+    "Stats bar contains 50L+, 9, 3, Free + labels Aspirants, Exams Covered, Languages, Forever",
+    "6 feature cards rendered with all 6 expected titles",
+    "Watch Demo CTA opens demo-modal Dialog",
+    "Hero email form submits valid email and shows success toast 'welcome to SpardhaHub!'",
+    "Closing CTA email form submits valid email and shows success toast (integration to /api/signup verified)",
+    "Footer renders (data-testid=footer)",
+    "Navbar fixed, transparent at top, becomes opaque with backdrop-blur on scroll (class changes)",
+    "Mobile menu toggle opens menu (testids nav-mobile-toggle / nav-mobile-menu)"
+  ],
+  "failed": [
+    {
+      "area": "frontend/Hero invalid email UX",
+      "issue": "Submitting an invalid email does NOT show the sonner error toast — input has type=\"email\" so the browser's native HTML5 validation blocks form submit before the JS handler runs. Spec asked for an error toast.",
+      "evidence": "Filled 'invalid-email' in hero-email-input and clicked hero-primary-cta; toasts list was empty. Code: Hero.jsx line 31 calls toast.error but is only reached after submit handler executes.",
+      "priority": "LOW"
+    },
+    {
+      "area": "frontend/Navbar testid naming",
+      "issue": "Spec requested data-testid='mobile-menu-toggle' and 'mobile-menu'; code uses 'nav-mobile-toggle' and 'nav-mobile-menu'. Functionality is correct, only naming differs.",
+      "evidence": "grep on Navbar.jsx lines 76 and 92.",
+      "priority": "LOW"
+    }
+  ],
+  "action_items": [
+    "Optional: change hero email input to type='text' or add noValidate to the form so the custom toast.error('Please enter a valid email address') is shown for invalid emails (current native tooltip still informs user, so non-blocking).",
+    "Optional: align Navbar testids with spec (mobile-menu-toggle / mobile-menu) or update the spec to match implementation."
+  ],
+  "success_rate": {"backend": "100%", "frontend": "~88%"},
+  "retest_needed": false,
+  "full_testing_deferred": true
+}
