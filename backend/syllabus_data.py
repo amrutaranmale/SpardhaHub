@@ -873,6 +873,711 @@ EXAM_SYLLABUS = {
             },
         ],
     },
+
+    # ---------- UPSC family ----------
+    "UPSC-CDS": {
+        "subjects": [
+            {
+                "name": "Elementary Mathematics",
+                "chapters": [
+                    {"name": "Arithmetic", "topics": [
+                        _stub_topic("cds-num", "Number system, HCF/LCM, ratios, percentages",
+                            "Master Class 10 NCERT arithmetic. Time-saving tricks for CDS Maths — 100 Q in 120 min.",
+                            ["NCERT Maths Class 10", "Pathfinder CDS — Arihant"]),
+                        _stub_topic("cds-tsd", "Time, Speed, Distance & Work",
+                            "Relative speed, trains, boats, pipes & cisterns — appear every cycle.",
+                            ["R.S. Aggarwal Quantitative Aptitude"]),
+                    ]},
+                    {"name": "Geometry & Trigonometry", "topics": [
+                        _stub_topic("cds-geo", "Lines, triangles, circles, mensuration",
+                            "Class 10 Geometry + 2D/3D mensuration formulas. Avg 12-15 questions in Maths paper.",
+                            ["NCERT Geometry", "Pathfinder CDS"]),
+                        _stub_topic("cds-trig", "Heights, distances, trigonometric ratios",
+                            "Standard angles, identities, height & distance word problems.",
+                            ["NCERT Class 10 Trigonometry"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "English",
+                "chapters": [
+                    {"name": "Grammar & Vocabulary", "topics": [
+                        _stub_topic("cds-eng", "Spotting errors, sentence improvement, idioms",
+                            "30-35 grammar questions per paper. Build vocabulary from Word Power Made Easy.",
+                            ["Word Power Made Easy — Norman Lewis", "Wren & Martin"]),
+                        _stub_topic("cds-rc", "Reading comprehension passages",
+                            "Skim, scan, then deep-read. Practice editorial-style passages.",
+                            ["The Hindu Editorial", "Pathfinder CDS"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "General Knowledge",
+                "chapters": [
+                    {"name": "Static + Current Affairs", "topics": [
+                        _stub_topic("cds-gk", "Indian History, Polity, Geography, Economy",
+                            "Lucent + NCERTs is the baseline. Last 1 year current affairs heavily tested.",
+                            ["Lucent's GK", "Manorama Yearbook"]),
+                        _stub_topic("cds-def", "Defence-specific GK",
+                            "Indian Armed Forces structure, ranks, recent wars, modern equipment.",
+                            ["Pathfinder CDS — Arihant"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "UPSC-ESE": {
+        "subjects": [
+            {
+                "name": "General Studies & Engineering Aptitude (Paper I)",
+                "chapters": [
+                    {"name": "Current Issues & Engg Aptitude", "topics": [
+                        _stub_topic("ese-curr", "National/International current affairs, S&T",
+                            "Focus on infrastructure, atomic energy, space, defence tech. 12-month window.",
+                            ["The Hindu", "Vision IAS Monthly", "Made Easy GS+Aptitude"]),
+                        _stub_topic("ese-eth", "Engineering Ethics, Society & Environment",
+                            "Code of conduct, environmental ethics, sustainability principles.",
+                            ["Made Easy Engg Ethics book"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Stream Technical (CE/ME/EE/EC)",
+                "chapters": [
+                    {"name": "Core subjects (per stream)", "topics": [
+                        _stub_topic("ese-tech1", "GATE-level concepts + conventional questions",
+                            "Cover GATE syllabus fully, then add ESE-only topics. Conventional paper needs answer writing.",
+                            ["Made Easy / IES Master postal", "Stream standard texts"]),
+                        _stub_topic("ese-tech2", "Conventional paper answer-writing",
+                            "Write structured answers with diagrams and free-body diagrams. 2 questions/day with timer.",
+                            ["IES Master conventional papers"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "UPSC-CAPF": {
+        "subjects": [
+            {
+                "name": "Paper I — General Ability & Intelligence",
+                "chapters": [
+                    {"name": "GS subjects", "topics": [
+                        _stub_topic("capf-gs", "History, Polity, Geography, Economy, S&T",
+                            "Same standard as UPSC Prelims but lighter optional load. NCERT + standard books.",
+                            ["NCERTs", "Laxmikanth — Polity", "Spectrum — Modern India"]),
+                        _stub_topic("capf-ca", "Current Affairs (last 1 year)",
+                            "National & international affairs, internal security focus.",
+                            ["The Hindu", "Drishti IAS Monthly"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Paper II — Essay, Comprehension & Communication",
+                "chapters": [
+                    {"name": "Writing skills", "topics": [
+                        _stub_topic("capf-essay", "Essay writing (English/Hindi)",
+                            "1 essay/week, 800 words, 60 min. Structure: intro → arguments → counter → conclusion.",
+                            ["Manorama Yearbook", "Past CAPF essay topics"]),
+                        _stub_topic("capf-pet", "PET preparation (parallel)",
+                            "100m sprint, 800m run, long jump, shot put. Daily 3 km run + bodyweight training.",
+                            ["NCC Physical Training Manual"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "UPSC-NDA": {
+        "subjects": [
+            {
+                "name": "Mathematics (Class 11-12)",
+                "chapters": [
+                    {"name": "Algebra, Calculus, Vector", "topics": [
+                        _stub_topic("nda-algebra", "Sets, complex numbers, sequences & series, matrices",
+                            "NCERT cover-to-cover, then RD Sharma for tougher problems.",
+                            ["NCERT Class 11-12", "RD Sharma", "Pathfinder NDA — Arihant"]),
+                        _stub_topic("nda-calc", "Differential & integral calculus",
+                            "Limits, derivatives, applications, integration techniques. ~25 Qs in Paper I.",
+                            ["NCERT Class 12 Calculus"]),
+                    ]},
+                    {"name": "Trigonometry & Coordinate Geometry", "topics": [
+                        _stub_topic("nda-trig", "Trig ratios, identities, heights & distances",
+                            "Memorize standard angles, identities and proofs. ~10 Qs.",
+                            ["NCERT Trigonometry"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "General Ability Test (GAT)",
+                "chapters": [
+                    {"name": "Physics & Chemistry (Class 11-12)", "topics": [
+                        _stub_topic("nda-phy", "Mechanics, optics, electricity, modern physics",
+                            "NCERT + Pradeep's objective. Focus on numerical-heavy topics.",
+                            ["NCERT Class 11-12 Physics"]),
+                        _stub_topic("nda-chem", "Inorganic, Organic, Physical chemistry basics",
+                            "Periodic table, bonding, organic functional groups, equilibrium.",
+                            ["NCERT Class 11-12 Chemistry"]),
+                    ]},
+                    {"name": "English & GK", "topics": [
+                        _stub_topic("nda-eng", "Grammar, vocabulary, comprehension",
+                            "Word Power Made Easy + daily editorial reading.",
+                            ["Word Power Made Easy", "Wren & Martin"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "UPSC-CMS": {
+        "subjects": [
+            {
+                "name": "Paper I — General Medicine & Paediatrics",
+                "chapters": [
+                    {"name": "General Medicine", "topics": [
+                        _stub_topic("cms-med", "Cardiology, Endocrinology, Infectious diseases",
+                            "Marrow/PrepLadder MCQs daily. Focus on high-yield topics for CMS pattern.",
+                            ["Marrow / PrepLadder", "Davidson's Principles"]),
+                        _stub_topic("cms-paeds", "Paediatrics — common diseases & vaccines",
+                            "IAP immunisation schedule, paediatric milestones, nutrition.",
+                            ["Ghai Essential Paediatrics"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Paper II — Surgery, OBG, PSM",
+                "chapters": [
+                    {"name": "Surgery + OBG", "topics": [
+                        _stub_topic("cms-surg", "General Surgery basics",
+                            "Bailey for quick revision. Trauma, sepsis, surgical anatomy.",
+                            ["Bailey & Love"]),
+                        _stub_topic("cms-obg", "Obstetrics & Gynaecology",
+                            "Antenatal care, labour, contraception, common gynae issues.",
+                            ["DC Dutta — OBG"]),
+                    ]},
+                    {"name": "Preventive & Social Medicine", "topics": [
+                        _stub_topic("cms-psm", "Epidemiology, communicable disease control, national health programs",
+                            "PSM carries highest weightage — revise Park's textbook 2-3 times.",
+                            ["Park's PSM"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "UPSC-IFOS": {
+        "subjects": [
+            {
+                "name": "Mains Optional Subjects",
+                "chapters": [
+                    {"name": "Forestry / Agriculture", "topics": [
+                        _stub_topic("ifos-for", "Silviculture, forest management, forest economics",
+                            "Indian Forestry — S.S. Negi is the bible. Map every chapter to PYQs.",
+                            ["Manual of Indian Forestry — S.S. Negi"]),
+                        _stub_topic("ifos-agri", "Agronomy, soil science, agricultural economics",
+                            "ICAR books + standard agriculture textbooks.",
+                            ["Agronomy — ICAR", "Soil Science — Brady"]),
+                    ]},
+                    {"name": "Zoology / Botany / Geology", "topics": [
+                        _stub_topic("ifos-bot", "Plant taxonomy, ecology, physiology",
+                            "Choose this if you have a botany/biology background.",
+                            ["Pandey textbook of Botany"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "GS Mains (same as CSE)",
+                "chapters": [
+                    {"name": "Environment Focus", "topics": [
+                        _stub_topic("ifos-env", "Forestry policy, Wildlife Protection Act, biodiversity",
+                            "Map every news item to relevant act/policy. Read ICFRE reports.",
+                            ["Shankar IAS — Environment", "ICFRE Annual Reports"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    # ---------- MPSC family ----------
+    "MPSC-GROUPB": {
+        "subjects": [
+            {
+                "name": "Marathi & English",
+                "chapters": [
+                    {"name": "Vyakaran (Grammar)", "topics": [
+                        _stub_topic("gb-marathi", "Marathi grammar — sandhi, samas, vibhakti, alankar",
+                            "Daily 30 min of Adhikari Marathi grammar. PSI/STI/ASO pattern unchanged.",
+                            ["Adhikari — Marathi Vyakaran"]),
+                        _stub_topic("gb-eng", "English grammar — error spotting, comprehension",
+                            "Wren & Martin + daily English newspaper.",
+                            ["Wren & Martin", "Norman Lewis"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "General Knowledge",
+                "chapters": [
+                    {"name": "Maharashtra GK + Static", "topics": [
+                        _stub_topic("gb-mhgk", "Maharashtra geography, history, polity",
+                            "Maharashtra Year Book is mandatory.",
+                            ["Maharashtra Year Book", "Loksatta"]),
+                        _stub_topic("gb-ind", "Indian Constitution basics, Indian history",
+                            "Laxmikanth (Marathi/English) + Spectrum Modern India.",
+                            ["Laxmikanth", "Spectrum"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Quantitative Aptitude & Reasoning",
+                "chapters": [
+                    {"name": "Speed solving", "topics": [
+                        _stub_topic("gb-quant", "Arithmetic, ratios, percentages, profit-loss",
+                            "100 Q in 60 min — practice with timer daily.",
+                            ["R.S. Aggarwal Quantitative Aptitude"]),
+                        _stub_topic("gb-reason", "Coding-decoding, blood relations, series, syllogism",
+                            "Verbal + non-verbal reasoning. Practice 30 Qs daily.",
+                            ["R.S. Aggarwal Reasoning"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "MPSC-GROUPC": {
+        "subjects": [
+            {
+                "name": "Language Papers",
+                "chapters": [
+                    {"name": "Typing skills", "topics": [
+                        _stub_topic("gc-typing", "Marathi typing 30 wpm, English typing 40 wpm",
+                            "Daily 30 min typing practice — TypingMaster software helps.",
+                            ["TypingMaster software"]),
+                        _stub_topic("gc-marathi", "Marathi & English grammar basics",
+                            "Adhikari + Wren & Martin sufficient.",
+                            ["Adhikari", "Wren & Martin"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "GK + Maths",
+                "chapters": [
+                    {"name": "Basic concepts", "topics": [
+                        _stub_topic("gc-math", "Class 10 arithmetic, percentages, simple algebra",
+                            "Stick to fundamentals. No need for advanced topics.",
+                            ["NCERT Class 10 Maths"]),
+                        _stub_topic("gc-mhgk", "Maharashtra-specific GK + Indian Constitution basics",
+                            "Maharashtra Sansari is a focused resource.",
+                            ["Maharashtra Sansari", "K-Sagar Group C"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "MPSC-TECH": {
+        "subjects": [
+            {
+                "name": "Stream Technical",
+                "chapters": [
+                    {"name": "Core Engineering", "topics": [
+                        _stub_topic("mt-core", "Civil / Mech / Electrical core subjects",
+                            "GATE-level depth. Made Easy postal notes are gold-standard.",
+                            ["Made Easy postal", "Engineering Mathematics — B.S. Grewal"]),
+                        _stub_topic("mt-pyq", "Last 10y MPSC Technical PYQs",
+                            "Map question patterns; many topics repeat verbatim.",
+                            ["K-Sagar MPSC Technical PYQ"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "GS (Maharashtra focus)",
+                "chapters": [
+                    {"name": "MH-specific GS", "topics": [
+                        _stub_topic("mt-mhgs", "Maharashtra geography, polity & current affairs",
+                            "Same as Rajyaseva but reduced depth.",
+                            ["K-Sagar GS", "Maharashtra Year Book"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "MPSC-SUB": {
+        "subjects": [
+            {
+                "name": "Marathi & English Language",
+                "chapters": [
+                    {"name": "Grammar", "topics": [
+                        _stub_topic("ms-lang", "Marathi/English grammar + vocabulary",
+                            "Daily 1 hr grammar drill. Vocabulary via newspaper.",
+                            ["Adhikari", "Wren & Martin"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "GK + Aptitude",
+                "chapters": [
+                    {"name": "Current Affairs + Aptitude", "topics": [
+                        _stub_topic("ms-ca", "Maharashtra-focused current affairs (last 1 yr)",
+                            "Loksatta editorials + Maharashtra Year Book.",
+                            ["Loksatta", "Maharashtra Year Book"]),
+                        _stub_topic("ms-quant", "Quantitative Aptitude basics",
+                            "Class 10 arithmetic; ratios; percentages; D-I.",
+                            ["R.S. Aggarwal Quant"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    # ---------- IAF ----------
+    "IAF-FTS": {
+        "subjects": [
+            {
+                "name": "SSB Interview (Direct Entry)",
+                "chapters": [
+                    {"name": "5-Stage SSB Process", "topics": [
+                        _stub_topic("fts-ssb1", "Day 1 — Screening (OIR + PPDT)",
+                            "Officer Intelligence Rating tests + Picture Perception Discussion Test.",
+                            ["SSB Cracker — N.K. Natarajan"]),
+                        _stub_topic("fts-ssb2", "Days 2-4 — Psychology + GTO + Personal Interview",
+                            "TAT, WAT, SRT, SD + Group Discussion + Group Tasks + PI.",
+                            ["Let Us Crack SSB Interview"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Aviation Awareness",
+                "chapters": [
+                    {"name": "IAF Knowledge", "topics": [
+                        _stub_topic("fts-iaf", "IAF history, ranks, modern aircraft, ongoing operations",
+                            "Rafale, Tejas, Sukhoi-30, S-400, recent exercises.",
+                            ["Aviation Week magazine", "IAF website"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "IAF-NCC": {
+        "subjects": [
+            {
+                "name": "SSB Preparation",
+                "chapters": [
+                    {"name": "OLQs & GTO", "topics": [
+                        _stub_topic("ncc-iaf-olq", "Officer-Like Qualities + group tasks",
+                            "Same 15 OLQs framework — apply via NCC HQ during final year.",
+                            ["SSB Cracker"]),
+                        _stub_topic("ncc-iaf-pabt", "Pilot Aptitude Battery Test (for flying branch)",
+                            "Hand-eye coordination, multitasking — practice flight-sim apps.",
+                            ["PABT preparation — Arihant"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "IAF-MET": {
+        "subjects": [
+            {
+                "name": "AFCAT + EKT Met",
+                "chapters": [
+                    {"name": "AFCAT prep", "topics": [
+                        _stub_topic("met-afcat", "Same as AFCAT officer entry preparation",
+                            "Aptitude + Verbal + GK + Reasoning.",
+                            ["AFCAT — Arihant"]),
+                    ]},
+                    {"name": "Meteorology basics", "topics": [
+                        _stub_topic("met-atm", "Atmospheric science, weather systems, climatology",
+                            "Wallace & Hobbs — standard university textbook.",
+                            ["Atmospheric Science — Wallace & Hobbs"]),
+                        _stub_topic("met-prac", "Practical Meteorology — data interpretation",
+                            "Surface charts, radiosondes, satellite imagery basics.",
+                            ["IMD training manuals"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    # ---------- Indian Army (rest) ----------
+    "ARMY-SSCT": {
+        "subjects": [
+            {
+                "name": "SSB Interview",
+                "chapters": [
+                    {"name": "5-stage SSB", "topics": [
+                        _stub_topic("ssct-ssb", "Screening, Psychology, GTO, PI, Conference",
+                            "Direct SSB after engineering % shortlist. No written exam.",
+                            ["Let Us Crack SSB Interview"]),
+                        _stub_topic("ssct-olq", "Officer-Like Qualities development",
+                            "Build through college NCC, sports, leadership roles, debate club.",
+                            ["SSB Cracker"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Physical Fitness",
+                "chapters": [
+                    {"name": "Endurance & strength", "topics": [
+                        _stub_topic("ssct-fit", "2.4 km run < 12 min, push-ups, sit-ups",
+                            "Train 4-5 days/week. Mix HIIT + strength + flexibility.",
+                            ["Indian Army Physical Training Manual"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "ARMY-JAG": {
+        "subjects": [
+            {
+                "name": "Law Subjects",
+                "chapters": [
+                    {"name": "Constitution & Major Acts", "topics": [
+                        _stub_topic("jag-cons", "Constitutional law — fundamental rights, separation of powers",
+                            "Bare Act revision + landmark judgements (Kesavananda, Maneka Gandhi).",
+                            ["Bare Act — Constitution", "DD Basu"]),
+                        _stub_topic("jag-ipc", "IPC, CrPC, Evidence Act overview",
+                            "Focus on critical sections relevant to military law.",
+                            ["IPC Bare Act", "CrPC by Ratanlal"]),
+                    ]},
+                    {"name": "Military Law", "topics": [
+                        _stub_topic("jag-mil", "Army Act 1950 — basics for JAG officers",
+                            "Court-martial structure, military offences.",
+                            ["Army Act 1950 (Bare Act)"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "SSB Interview Prep",
+                "chapters": [
+                    {"name": "OLQs + Legal scenarios", "topics": [
+                        _stub_topic("jag-ssb", "Legal current affairs + general SSB process",
+                            "Landmark cases + recent judgements + group discussion.",
+                            ["The Hindu Legal columns", "SSB Cracker"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "ARMY-NCC": {
+        "subjects": [
+            {
+                "name": "SSB Process",
+                "chapters": [
+                    {"name": "OLQ Development", "topics": [
+                        _stub_topic("anc-olq", "15 OLQs + 5-stage SSB",
+                            "Apply via your NCC unit. No written exam.",
+                            ["NCC Cadet Handbook", "SSB Cracker"]),
+                        _stub_topic("anc-public", "Public speaking & leadership",
+                            "Debate, drill, command — leverage NCC experience.",
+                            ["Public Speaking — Dale Carnegie"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    # ---------- Engineering (PSU & Diploma) ----------
+    "ISRO-SC": {
+        "subjects": [
+            {
+                "name": "Stream Core (EC/CS/ME)",
+                "chapters": [
+                    {"name": "Core technical (per stream)", "topics": [
+                        _stub_topic("isro-ec", "EC — Signals, Digital, Communication, Control Systems",
+                            "GATE-level depth. ISRO PYQ patterns favour communication & control.",
+                            ["GATE EC — Made Easy", "ISRO PYQs 10 years"]),
+                        _stub_topic("isro-cs", "CS — OS, DBMS, Algorithms, Networks",
+                            "Same as GATE CS syllabus.",
+                            ["GATE CS — Made Easy"]),
+                    ]},
+                    {"name": "Aerospace orientation", "topics": [
+                        _stub_topic("isro-aero", "Basics of aerospace, satellites, propulsion",
+                            "Skim John D. Anderson + ISRO mission briefs.",
+                            ["Introduction to Flight — Anderson"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Interview Prep",
+                "chapters": [
+                    {"name": "Project + Technical Viva", "topics": [
+                        _stub_topic("isro-int", "Explain B.Tech project clearly & deeply",
+                            "Be ready for fundamentals from final-year project. Mock interviews help.",
+                            ["Project Diary", "ISRO Annual Report"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "BARC-OCES": {
+        "subjects": [
+            {
+                "name": "Stream Core",
+                "chapters": [
+                    {"name": "Stream-specific (Mech / Chem / Elec / Met / CS / Civil)", "topics": [
+                        _stub_topic("barc-core", "GATE syllabus + BARC PYQs",
+                            "BARC asks fundamentals deeper than GATE. 15 years PYQs are gold.",
+                            ["Made Easy / IES Master", "BARC PYQs compilation"]),
+                        _stub_topic("barc-nuc", "Nuclear engineering basics",
+                            "Lamarsh — chapters on reactor physics, neutron diffusion.",
+                            ["Nuclear Reactor Engineering — Lamarsh"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Interview",
+                "chapters": [
+                    {"name": "Technical Viva", "topics": [
+                        _stub_topic("barc-int", "Atomic energy current affairs + project deep-dive",
+                            "Be ready: Kalpakkam, Tarapur, KAPS, Apsara, IFR program.",
+                            ["DAE Annual Report"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "DRDO-SET": {
+        "subjects": [
+            {
+                "name": "Stream Core",
+                "chapters": [
+                    {"name": "Stream subjects + GA + Maths", "topics": [
+                        _stub_topic("drdo-core", "Aerospace/EC/ME/CS — GATE depth",
+                            "GATE prep + DRDO-specific PYQs of last 10 years.",
+                            ["Made Easy stream books", "DRDO PYQs"]),
+                        _stub_topic("drdo-tech", "Defence technology awareness",
+                            "Missiles (Astra, Akash, Agni), radars, drones, EW systems.",
+                            ["Defence News digests", "DRDO Newsletter"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "Interview",
+                "chapters": [
+                    {"name": "Project + Viva", "topics": [
+                        _stub_topic("drdo-int", "Final-year project + fundamental viva",
+                            "DRDO favours candidates with strong project & research aptitude.",
+                            ["DRDO Project Portfolio"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "SSC-JE": {
+        "subjects": [
+            {
+                "name": "Technical Stream (CE / ME / EE)",
+                "chapters": [
+                    {"name": "Stream-wise core", "topics": [
+                        _stub_topic("ssc-je-tech", "Civil/Mech/Electrical Diploma + BE subjects",
+                            "Cover Diploma syllabus first; layer BE topics. Made Easy postal helps.",
+                            ["Made Easy SSC JE", "RS Khurmi / BC Punmia / V.K. Mehta"]),
+                        _stub_topic("ssc-je-conv", "Paper II Conventional answer-writing",
+                            "Long-form questions with figures. 2 questions/day with timer.",
+                            ["Made Easy Conventional"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "General Intelligence & Reasoning",
+                "chapters": [
+                    {"name": "Reasoning + GA", "topics": [
+                        _stub_topic("ssc-je-rea", "Verbal & non-verbal reasoning",
+                            "Coding, series, analogy, syllogism, mirror images.",
+                            ["RS Aggarwal Verbal & Non-verbal Reasoning"]),
+                        _stub_topic("ssc-je-ga", "General Awareness — last 1 year + static",
+                            "Indian polity, history, geography basics.",
+                            ["Lucent GK", "Manorama Yearbook"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "STATE-AE-JE": {
+        "subjects": [
+            {
+                "name": "Stream Technical",
+                "chapters": [
+                    {"name": "State-specific syllabus", "topics": [
+                        _stub_topic("sae-tech", "Civil / Mech / Electrical stream depth",
+                            "Made Easy + IES Master + state PSC PYQs (10+ years).",
+                            ["Made Easy stream books", "State PSC PYQs"]),
+                        _stub_topic("sae-conv", "Conventional Paper writing",
+                            "State boards focus on stream depth; sketches earn marks.",
+                            ["IES Master Conventional"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "GS + Language",
+                "chapters": [
+                    {"name": "Regional GS", "topics": [
+                        _stub_topic("sae-gs", "State-specific geography, history, polity",
+                            "State Year Book + regional newspaper.",
+                            ["State Year Book", "Manorama"]),
+                    ]},
+                ],
+            },
+        ],
+    },
+
+    "ENG-DIPLOMA": {
+        "subjects": [
+            {
+                "name": "Mathematics & Science (Class 10 NCERT)",
+                "chapters": [
+                    {"name": "Mathematics", "topics": [
+                        _stub_topic("dip-math", "Algebra, Geometry, Mensuration",
+                            "Polytechnic entrance is Class 10-level — focus on speed accuracy.",
+                            ["NCERT Maths Class 10", "Arihant JEECUP / DET / CEEP"]),
+                        _stub_topic("dip-mensur", "Mensuration formulas + word problems",
+                            "Square, rectangle, triangle, circle, cylinder, cone formulas memorized.",
+                            ["NCERT"]),
+                    ]},
+                    {"name": "Physics & Chemistry", "topics": [
+                        _stub_topic("dip-phy", "Motion, force, electricity, light, sound",
+                            "NCERT Class 10 Physics covers all entrance topics.",
+                            ["NCERT Class 10 Physics"]),
+                        _stub_topic("dip-chem", "Acids-bases, metals-nonmetals, carbon compounds",
+                            "Conceptual chemistry questions are common.",
+                            ["NCERT Class 10 Chemistry"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "English & Logical Reasoning",
+                "chapters": [
+                    {"name": "Language + Reasoning", "topics": [
+                        _stub_topic("dip-eng", "Grammar, comprehension, vocabulary",
+                            "Wren & Martin basics + daily reading.",
+                            ["Wren & Martin"]),
+                        _stub_topic("dip-reason", "Number series, analogy, coding-decoding",
+                            "20-30 reasoning Qs per polytechnic entrance.",
+                            ["RS Aggarwal Reasoning"]),
+                    ]},
+                ],
+            },
+            {
+                "name": "State-specific GK",
+                "chapters": [
+                    {"name": "Awareness", "topics": [
+                        _stub_topic("dip-gk", "State geography, history, civics basics",
+                            "State board Class 8-10 social science books.",
+                            ["State board books", "Lucent GK"]),
+                    ]},
+                ],
+            },
+        ],
+    },
 }
 
 

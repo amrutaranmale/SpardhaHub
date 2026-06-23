@@ -71,8 +71,8 @@ EXAMS = {
             {"phase": "Mocks", "months": "5", "tasks": ["PYQs last 10 years", "Full mocks weekly"]},
         ],
     },
-    "UPSC-IFoS": {
-        "code": "UPSC-IFoS", "body": "UPSC", "name": "Indian Forest Service",
+    "UPSC-IFOS": {
+        "code": "UPSC-IFOS", "body": "UPSC", "name": "Indian Forest Service",
         "min_age": 21, "max_age": 32, "qualification": "Science/Engg/Agri Graduate",
         "salary_inhand": 56100, "salary_post": "Forest Officer (Level 10)",
         "exam_date": "2027-09-13", "form_window": "Feb-Mar 2027",
@@ -340,7 +340,7 @@ CURRENT_AFFAIRS = [
         "category": "Environment",
         "title": "India ratifies revised Paris commitments at COP31",
         "summary": "Net-zero target reaffirmed for 2070; non-fossil energy share to hit 60% by 2030. New Green Hydrogen Mission Phase-2 announced.",
-        "exam_relevance": ["UPSC-CSE", "UPSC-IFoS", "MPSC-RAJYA"],
+        "exam_relevance": ["UPSC-CSE", "UPSC-IFOS", "MPSC-RAJYA"],
     },
     {
         "id": "ca-006", "date": "2026-06-20",
