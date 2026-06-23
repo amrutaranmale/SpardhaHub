@@ -72,7 +72,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto mt-14 pt-8 border-t border-white/8 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs text-[#7a7a92]">
-          © 2026 SpardhaHub. All rights reserved.
+          © 2026 SpardhaHub by Amruta Ranmale. All rights reserved.
         </p>
         <p className="text-xs text-[#7a7a92]">
           Crafted with <span className="text-[#EF9F27]">♦</span> for India&apos;s aspirants.
