@@ -1,0 +1,126 @@
+{
+  "brand": "SpardhaHub",
+  "tagline": "Your Goal. Our Path.",
+  "theme": "dark",
+  "archetype": "5 (Luxury / Cinematic)",
+  "design_inspiration": "Netflix hero meets Hotstar dark premium UI, Zerodha/CRED/Groww quality level.",
+  "colors": {
+    "background": "#1a1a2e",
+    "surface": "rgba(255, 255, 255, 0.03)",
+    "surface_hover": "rgba(255, 255, 255, 0.06)",
+    "accent_gold": "#EF9F27",
+    "accent_gold_light": "#F7C97E",
+    "interactive_purple": "#7F77DD",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#A0A0B5",
+    "border_subtle": "rgba(255, 255, 255, 0.1)"
+  },
+  "typography": {
+    "headings": {
+      "family": "Playfair Display, serif",
+      "weights": ["600", "700", "900"],
+      "usage": "H1, H2, large numbers. Brings the cinematic, premium edtech authority."
+    },
+    "body": {
+      "family": "Outfit, sans-serif",
+      "weights": ["300", "400", "500"],
+      "usage": "Subtitles, body text, UI elements, button text. Clean and modern."
+    },
+    "scale": {
+      "h1": "text-5xl md:text-6xl lg:text-7xl tracking-tight leading-tight",
+      "h2": "text-3xl md:text-4xl lg:text-5xl tracking-tight",
+      "body": "text-base md:text-lg text-[#A0A0B5]"
+    }
+  },
+  "layout_and_spacing": {
+    "container": "max-w-7xl mx-auto px-6 lg:px-8",
+    "section_spacing": "py-24 md:py-32",
+    "grid_system": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+  },
+  "surface_strategies": {
+    "glassmorphism": "backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)]",
+    "hover_effects": "transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_20px_rgba(127,119,221,0.3)]"
+  },
+  "components": {
+    "header": {
+      "style": "fixed top-0 w-full z-50 backdrop-blur-md bg-[#1a1a2e]/80 border-b border-white/10",
+      "elements": [
+        "Logo: 'SpardhaHub' text in Playfair Display with gold accent on 'Hub'",
+        "Nav Links: Outfit text-sm, hover:text-[#EF9F27]",
+        "CTA Button: Outline purple, text-sm"
+      ]
+    },
+    "hero": {
+      "layout": "Min-h-screen flex flex-col items-center justify-center pt-32 pb-20 relative overflow-hidden text-center",
+      "headline": "Crack UPSC, MPSC, CA & More (Apply bg-gradient-to-r from-[#EF9F27] to-[#F7C97E] text-transparent bg-clip-text on 'UPSC, MPSC, CA & More')",
+      "subheadline": "Personalized roadmaps • Live vacancy tracker • AI-powered study planner.",
+      "email_capture_form": "Flex container (row on desktop, col on mobile) gap-3 w-full max-w-md mx-auto mt-8. Input field with placeholder 'Enter your email address' styled with glassmorphism (bg-white/5, border-white/20, text-white).",
+      "ctas": {
+        "primary": "'Start Your Journey Free' - Used as the submit button for the email form. Solid gold bg-[#EF9F27] text-[#1a1a2e] font-semibold px-6 py-3 rounded-lg hover:shadow-[0_0_20px_rgba(239,159,39,0.4)] transition-all.",
+        "secondary": "'Watch Demo' - Outline button (border border-white/20) with play icon, placed near or below the form."
+      },
+      "background": "Cinematic dark navy (#1a1a2e) base. Use 'react-tsparticles' for subtle geometric nodes/stars in gold and purple. Radial gradient vignette overlay.",
+      "floating_cards": {
+        "description": "3 Glassmorphic animated countdown cards (UPSC 2026, MPSC 2026, SSC 2026) floating around the main hero content.",
+        "animation": "Framer motion floating effect (y: [0, -15, 0]) staggered.",
+        "card_style": "backdrop-blur-md bg-white/5 border border-white/10 p-4 rounded-xl shadow-lg max-w-[200px] text-left text-sm"
+      }
+    },
+    "stats_bar": {
+      "layout": "Grid of 4 items, border-y border-white/10 py-12 bg-white/[0.02]",
+      "item_style": "text-center flex flex-col items-center justify-center gap-1",
+      "content": [
+        {"value": "50L+", "label": "Aspirants"},
+        {"value": "9", "label": "Exams Covered"},
+        {"value": "3", "label": "Languages"},
+        {"value": "Free", "label": "Forever"}
+      ]
+    },
+    "features_section": {
+      "headline": "Your Ultimate Arsenal",
+      "layout": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16",
+      "card_style": "Glassmorphism panel (bg-white/5, border border-white/10, rounded-2xl p-8 hover:bg-white/10 transition-all).",
+      "items": [
+        {"title": "Smart Roadmap", "icon": "Map", "desc": "Step-by-step personalized learning paths for your specific exam goals."},
+        {"title": "Progress Tracker", "icon": "TrendingUp", "desc": "Real-time analytics to measure your daily mock test performance."},
+        {"title": "Daily Current Affairs", "icon": "Globe", "desc": "Bite-sized updates and news directly related to the UPSC syllabus."},
+        {"title": "Age Eligibility Checker", "icon": "UserCheck", "desc": "Instantly verify if you qualify for upcoming state and central exams."},
+        {"title": "Salary Calculator", "icon": "Calculator", "desc": "Estimate in-hand salaries post 7th pay commission for all target posts."},
+        {"title": "Exam Alerts", "icon": "Bell", "desc": "Never miss a deadline with automated notifications for form fill-ups."}
+      ]
+    },
+    "watch_demo_modal": {
+      "description": "Glassmorphic Dialog (Shadcn) triggered by 'Watch Demo' CTA. Contains a 16:9 YouTube video placeholder div with a play icon and dark thumbnail overlay."
+    },
+    "footer": {
+      "style": "py-12 border-t border-white/10 bg-[#1a1a2e]",
+      "content": "Brand logo 'SpardhaHub', tagline 'Your Goal. Our Path.', copyright 2026, social links."
+    }
+  },
+  "motion_and_interactions": {
+    "libraries": ["framer-motion", "lucide-react", "react-tsparticles"],
+    "page_load": "Staggered fade-up for hero elements (duration 0.8s, delayChildren 0.2s).",
+    "hover_states": "All buttons need hover scaling (scale: 1.02) or glow effects.",
+    "scroll_animations": "Use framer-motion 'whileInView' for feature cards to fade up as user scrolls."
+  },
+  "assets_and_media": {
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/12623752/pexels-photo-12623752.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Dark architectural abstract element for subtle texture overlay in background",
+        "category": "background_texture"
+      }
+    ],
+    "icons_library": "lucide-react"
+  },
+  "testing": {
+    "required_attributes": [
+      "data-testid='hero-email-input'",
+      "data-testid='hero-primary-cta'",
+      "data-testid='hero-demo-cta'",
+      "data-testid='demo-modal'",
+      "data-testid='feature-card'",
+      "data-testid='nav-logo'"
+    ]
+  }
+}
