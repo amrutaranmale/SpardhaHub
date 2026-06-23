@@ -1,12 +1,14 @@
 import React from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Map, TrendingUp, Globe, UserCheck, Calculator, BellRing, BookOpen, Newspaper, LogOut, ChevronLeft } from "lucide-react";
+import { LayoutDashboard, Map, TrendingUp, Globe, UserCheck, Calculator, BellRing, BookOpen, Newspaper, GraduationCap, Library, LogOut, ChevronLeft } from "lucide-react";
 import Logo from "@/components/landing/Logo";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 
 const NAV = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard, end: true },
+  { to: "/dashboard/study", label: "Study Center", icon: Library },
+  { to: "/dashboard/engineering", label: "Engineering Hub", icon: GraduationCap },
   { to: "/dashboard/roadmap", label: "Smart Roadmap", icon: Map },
   { to: "/dashboard/progress", label: "Progress Tracker", icon: TrendingUp },
   { to: "/dashboard/news", label: "Daily Exam News", icon: Newspaper },

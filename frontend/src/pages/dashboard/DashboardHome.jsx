@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Map, TrendingUp, Globe, UserCheck, Calculator, BellRing, BookOpen, Newspaper, ArrowUpRight, Flame } from "lucide-react";
+import { Map, TrendingUp, Globe, UserCheck, Calculator, BellRing, BookOpen, Newspaper, GraduationCap, Library, ArrowUpRight, Flame } from "lucide-react";
 import api from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 
 const TILES = [
+  { to: "/dashboard/study", title: "Study Center", desc: "Browse syllabi → chapters → topics. Read inline lessons.", icon: Library, accent: "#5EC4B6" },
+  { to: "/dashboard/engineering", title: "Engineering Hub", desc: "Branch-wise Diploma & Degree materials (CS/IT, EC, ME, CE, EE, Chem).", icon: GraduationCap, accent: "#7F77DD" },
   { to: "/dashboard/roadmap", title: "Smart Roadmap", desc: "Phase-by-phase study plan for your target exam.", icon: Map, accent: "#EF9F27" },
   { to: "/dashboard/progress", title: "Progress Tracker", desc: "Tick off topics & watch your completion grow.", icon: TrendingUp, accent: "#7F77DD" },
   { to: "/dashboard/news", title: "Daily Exam News", desc: "Notifications, form releases, admit cards & results.", icon: Newspaper, accent: "#EF9F27" },

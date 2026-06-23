@@ -97,11 +97,15 @@ export default function SignUp() {
             <Select value={form.target_exam} onValueChange={(v) => set("target_exam", v)}>
               <SelectTrigger
                 data-testid="signup-target-exam"
-                className="mt-1.5 w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 h-12 text-white text-sm focus:outline-none focus:ring-0 focus:border-[#EF9F27]/60 hover:bg-white/[0.06]"
+                className="mt-1.5 w-full bg-white/[0.04] border border-white/15 rounded-xl px-4 h-12 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#EF9F27]/40 focus:border-[#EF9F27]/60 hover:bg-white/[0.07] hover:border-white/25 cursor-pointer transition-colors"
               >
                 <SelectValue placeholder="Pick an exam" />
               </SelectTrigger>
-              <SelectContent className="bg-[#14142a] border border-white/10 text-white max-h-80">
+              <SelectContent
+                position="popper"
+                sideOffset={6}
+                className="bg-[#14142a] border border-white/10 text-white max-h-80 z-[60]"
+              >
                 {Object.entries(examsByBody).map(([body, list]) => (
                   <SelectGroup key={body}>
                     <SelectLabel className="text-[10px] uppercase tracking-[0.18em] text-[#EF9F27]">

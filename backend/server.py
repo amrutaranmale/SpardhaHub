@@ -19,6 +19,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 
 from exam_data import EXAMS, CURRENT_AFFAIRS, EXAM_NEWS
+from syllabus_data import EXAM_SYLLABUS, ENGINEERING_HUB
 
 # ----- Setup -----
 mongo_url = os.environ['MONGO_URL']
@@ -358,6 +359,82 @@ async def exam_news(exam: Optional[str] = None, limit: int = 20):
     # sort newest first
     items.sort(key=lambda x: x["date"], reverse=True)
     return {"count": len(items), "items": items[:limit]}
+
+
+# ----- Full study syllabus per exam -----
+@api_router.get("/syllabus/{code}")
+async def syllabus(code: str):
+    code_up = code.upper()
+    syl = EXAM_SYLLABUS.get(code_up)
+    if not syl:
+        # Fallback: build a minimal syllabus skeleton from the roadmap so every exam works
+        exam = EXAMS.get(code_up)
+        if not exam:
+            raise HTTPException(404, "Exam not found")
+        subjects = [{
+            "name": f"{ph['phase']} (Month {ph['months']})",
+            "chapters": [{
+                "name": "Key tasks",
+                "topics": [
+                    {
+                        "id": f"{code_up.lower()}-stub-{i}-{j}",
+                        "title": t,
+                        "summary": f"{t}. Use the recommended books, watch a topper's lecture, then attempt 20+ PYQs on this. Make crisp one-page notes for revision.",
+                        "key_points": [
+                            "Cover concept from a standard book",
+                            "Solve at least 20 PYQs",
+                            "Make a one-page revision sheet",
+                            "Self-quiz weekly",
+                        ],
+                        "books": ["See exam-specific Study Lessons in the Lessons section"],
+                    } for j, t in enumerate(ph["tasks"])
+                ],
+            }],
+        } for i, ph in enumerate(exam["roadmap"])]
+        syl = {"subjects": subjects, "auto_generated": True}
+    exam = EXAMS.get(code_up, {})
+    return {
+        "code": code_up,
+        "name": exam.get("name", code_up),
+        "body": exam.get("body", "—"),
+        "subjects": syl["subjects"],
+        "auto_generated": syl.get("auto_generated", False),
+    }
+
+
+# ----- Engineering branch hub (Diploma & Degree) -----
+@api_router.get("/engineering")
+async def engineering_hub():
+    branches = []
+    for name, b in ENGINEERING_HUB.items():
+        branches.append({
+            "name": name, "icon": b.get("icon", "Cpu"), "accent": b.get("accent", "#EF9F27"),
+            "has_diploma": "diploma" in b, "has_degree": "degree" in b,
+        })
+    return {"branches": branches}
+
+
+@api_router.get("/engineering/{branch}")
+async def engineering_branch(branch: str, track: str = "diploma"):
+    # Find branch case-insensitively
+    found = None
+    for name, b in ENGINEERING_HUB.items():
+        if name.lower().replace(" ", "-").replace("/", "-") == branch.lower():
+            found = (name, b)
+            break
+    if not found:
+        raise HTTPException(404, "Branch not found")
+    name, b = found
+    if track not in b:
+        raise HTTPException(404, f"Track '{track}' not available for {name}")
+    return {
+        "branch": name,
+        "icon": b.get("icon", "Cpu"),
+        "accent": b.get("accent", "#EF9F27"),
+        "track": track,
+        "duration": b[track].get("duration", ""),
+        "subjects": b[track].get("subjects", []),
+    }
 
 
 # ----- Mount -----
