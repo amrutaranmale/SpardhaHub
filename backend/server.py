@@ -18,7 +18,7 @@ from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 
-from exam_data import EXAMS, CURRENT_AFFAIRS
+from exam_data import EXAMS, CURRENT_AFFAIRS, EXAM_NEWS
 
 # ----- Setup -----
 mongo_url = os.environ['MONGO_URL']
@@ -322,22 +322,42 @@ async def list_ca(exam: Optional[str] = None):
 
 
 # ----- Exam alerts -----
+def _auto_roll_date(date_str: str):
+    """If exam_date is in the past, roll forward by 1 year automatically."""
+    try:
+        d = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return None, date_str
+    today = datetime.now(timezone.utc).date()
+    while (d - today).days < 0:
+        d = d.replace(year=d.year + 1)
+    return (d - today).days, d.isoformat()
+
+
 @api_router.get("/alerts")
 async def alerts():
     items = []
     for e in EXAMS.values():
-        try:
-            d = datetime.strptime(e["exam_date"], "%Y-%m-%d")
-            days_left = (d.date() - datetime.now(timezone.utc).date()).days
-        except Exception:
-            days_left = None
+        days_left, rolled_date = _auto_roll_date(e["exam_date"])
         items.append({
             "code": e["code"], "body": e["body"], "name": e["name"],
-            "exam_date": e["exam_date"], "form_window": e["form_window"],
+            "exam_date": rolled_date if days_left is not None else e["exam_date"],
+            "form_window": e["form_window"],
             "days_left": days_left,
         })
     items.sort(key=lambda x: (x["days_left"] is None, x["days_left"] if x["days_left"] is not None else 9999))
     return {"items": items}
+
+
+# ----- Exam news (auto-cycles latest 30 days) -----
+@api_router.get("/exam-news")
+async def exam_news(exam: Optional[str] = None, limit: int = 20):
+    items = list(EXAM_NEWS)
+    if exam:
+        items = [n for n in items if n["exam"].upper() == exam.upper()]
+    # sort newest first
+    items.sort(key=lambda x: x["date"], reverse=True)
+    return {"count": len(items), "items": items[:limit]}
 
 
 # ----- Mount -----

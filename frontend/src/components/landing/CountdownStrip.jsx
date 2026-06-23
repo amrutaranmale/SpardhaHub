@@ -7,21 +7,21 @@ const EXAMS = [
   {
     code: "UPSC",
     name: "UPSC Civil Services Prelims",
-    date: "2026-05-24T09:30:00+05:30",
+    date: "2027-05-23T09:30:00+05:30",
     accent: "#EF9F27",
     tag: "Most Prestigious",
   },
   {
     code: "MPSC",
     name: "MPSC State Services Prelims",
-    date: "2026-04-12T11:00:00+05:30",
+    date: "2027-04-11T11:00:00+05:30",
     accent: "#7F77DD",
     tag: "Maharashtra",
   },
   {
     code: "SSC",
     name: "SSC CGL Tier-I",
-    date: "2026-07-08T10:00:00+05:30",
+    date: "2027-07-08T10:00:00+05:30",
     accent: "#5EC4B6",
     tag: "Central Govt",
   },
@@ -128,7 +128,7 @@ export default function CountdownStrip() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <span className="text-xs uppercase tracking-[0.22em] text-[#7F77DD]">
-            Exam Countdown · 2026
+            Exam Countdown · 2027
           </span>
           <h2 className="font-serif-display text-3xl md:text-4xl mt-2 text-white">
             Every second matters. <span className="text-gold-gradient italic">Start now.</span>

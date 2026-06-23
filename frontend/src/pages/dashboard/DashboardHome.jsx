@@ -1,35 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Map, TrendingUp, Globe, UserCheck, Calculator, BellRing, BookOpen, ArrowUpRight, Flame } from "lucide-react";
+import { Map, TrendingUp, Globe, UserCheck, Calculator, BellRing, BookOpen, Newspaper, ArrowUpRight, Flame } from "lucide-react";
 import api from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 
 const TILES = [
   { to: "/dashboard/roadmap", title: "Smart Roadmap", desc: "Phase-by-phase study plan for your target exam.", icon: Map, accent: "#EF9F27" },
   { to: "/dashboard/progress", title: "Progress Tracker", desc: "Tick off topics & watch your completion grow.", icon: TrendingUp, accent: "#7F77DD" },
+  { to: "/dashboard/news", title: "Daily Exam News", desc: "Notifications, form releases, admit cards & results.", icon: Newspaper, accent: "#EF9F27" },
   { to: "/dashboard/current-affairs", title: "Daily Current Affairs", desc: "Hand-curated briefs tagged to every exam.", icon: Globe, accent: "#5EC4B6" },
   { to: "/dashboard/eligibility", title: "Age Eligibility Checker", desc: "Instantly see which exams you can apply for.", icon: UserCheck, accent: "#F7C97E" },
   { to: "/dashboard/salary", title: "Salary Calculator", desc: "In-hand salary, HRA, DA — for every post.", icon: Calculator, accent: "#EF9F27" },
   { to: "/dashboard/alerts", title: "Exam Alerts", desc: "Live countdown to every upcoming exam.", icon: BellRing, accent: "#7F77DD" },
-  { to: "/dashboard/lessons", title: "Study Lessons", desc: "22 structured lessons across UPSC, MPSC, IAF, Army.", icon: BookOpen, accent: "#5EC4B6" },
+  { to: "/dashboard/lessons", title: "Study Lessons", desc: "27 structured lessons across all bodies.", icon: BookOpen, accent: "#5EC4B6" },
 ];
 
 export default function DashboardHome() {
   const { user } = useAuth();
-  const [stats, setStats] = useState({ progress: 0, alerts: [], ca: [] });
+  const [stats, setStats] = useState({ progress: 0, alerts: [], ca: [], news: [] });
 
   useEffect(() => {
     (async () => {
       try {
-        const [p, a, c] = await Promise.all([
+        const [p, a, c, n] = await Promise.all([
           api.get("/progress").catch(() => ({ data: { total: 0 } })),
           api.get("/alerts"),
           api.get("/current-affairs"),
+          api.get("/exam-news"),
         ]);
         setStats({
           progress: p.data?.total || 0,
           alerts: (a.data?.items || []).slice(0, 3),
           ca: (c.data?.items || []).slice(0, 3),
+          news: (n.data?.items || []).slice(0, 3),
         });
       } catch {
         // ignore
@@ -47,10 +50,31 @@ export default function DashboardHome() {
         {user?.dob ? ` · DOB: ${user.dob}` : ""}
       </p>
 
+      {/* News ticker */}
+      {stats.news.length > 0 && (
+        <Link
+          to="/dashboard/news"
+          data-testid="news-ticker"
+          className="mt-6 block glass rounded-2xl px-5 py-3.5 border border-[#EF9F27]/25 hover:border-[#EF9F27]/45 transition-colors group"
+        >
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] font-semibold text-[#EF9F27] flex-shrink-0">
+              <Newspaper size={12} /> Latest
+            </span>
+            <span className="flex-1 text-sm text-white truncate">
+              <span className="text-[#7F77DD] mr-2">[{stats.news[0].exam}]</span>
+              {stats.news[0].title}
+            </span>
+            <ArrowUpRight size={14} className="text-[#A0A0B5] group-hover:text-white flex-shrink-0" />
+          </div>
+        </Link>
+      )}
+
       {/* Quick stats */}
-      <div className="grid grid-cols-3 gap-3 mt-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
         <Stat label="Topics tracked" value={stats.progress} accent="#EF9F27" />
         <Stat label="Upcoming exams" value={stats.alerts.length} accent="#7F77DD" />
+        <Stat label="News items" value={stats.news.length} accent="#F7C97E" />
         <Stat label="CA briefs" value={stats.ca.length} accent="#5EC4B6" />
       </div>
 

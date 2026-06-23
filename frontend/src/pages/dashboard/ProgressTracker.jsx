@@ -3,16 +3,14 @@ import { TrendingUp, Loader2, CheckCircle2, Circle } from "lucide-react";
 import api, { formatApiError } from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
+import ExamPicker from "@/components/ExamPicker";
 
 export default function ProgressTracker() {
   const { user } = useAuth();
-  const [exams, setExams] = useState([]);
   const [code, setCode] = useState(user?.target_exam || "UPSC-CSE");
   const [plan, setPlan] = useState(null);
   const [done, setDone] = useState(new Set());
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => { api.get("/exams").then((r) => setExams(r.data?.exams || [])); }, []);
 
   const load = async (c) => {
     try {
@@ -28,7 +26,7 @@ export default function ProgressTracker() {
     }
   };
 
-  useEffect(() => { if (code) load(code); /* eslint-disable-next-line */ }, [code]);
+  useEffect(() => { if (code) load(code); }, [code]);
 
   const toggle = async (topic) => {
     const nowDone = !done.has(topic);
@@ -56,17 +54,8 @@ export default function ProgressTracker() {
       </p>
 
       <div className="glass rounded-2xl p-5 border border-white/8 mb-6">
-        <label className="text-xs uppercase tracking-[0.18em] text-[#A0A0B5]">Exam</label>
-        <select
-          data-testid="progress-exam-select"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          className="mt-1.5 w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#EF9F27]/60"
-        >
-          {exams.map((e) => (
-            <option key={e.code} value={e.code}>{e.body} · {e.name}</option>
-          ))}
-        </select>
+        <label className="text-xs uppercase tracking-[0.18em] text-[#A0A0B5] mb-1.5 block">Exam</label>
+        <ExamPicker value={code} onChange={setCode} testid="progress-exam-select" />
       </div>
 
       {plan && (

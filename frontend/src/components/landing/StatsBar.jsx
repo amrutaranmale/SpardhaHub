@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const STATS = [
   { value: "50L+", label: "Aspirants" },
-  { value: "9", label: "Exams Covered" },
+  { value: "27", label: "Exams Covered" },
   { value: "3", label: "Languages" },
   { value: "Free", label: "Forever" },
 ];

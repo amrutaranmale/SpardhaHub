@@ -3,17 +3,13 @@ import { Calculator, Loader2 } from "lucide-react";
 import api, { formatApiError } from "@/lib/api";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
+import ExamPicker from "@/components/ExamPicker";
 
 export default function SalaryCalculator() {
   const { user } = useAuth();
-  const [exams, setExams] = useState([]);
   const [code, setCode] = useState(user?.target_exam || "UPSC-CSE");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    api.get("/exams").then((r) => setExams(r.data?.exams || [])).catch(() => {});
-  }, []);
 
   const compute = async (c) => {
     try {
@@ -27,10 +23,7 @@ export default function SalaryCalculator() {
     }
   };
 
-  useEffect(() => {
-    if (code) compute(code);
-    // eslint-disable-next-line
-  }, [code]);
+  useEffect(() => { if (code) compute(code); }, [code]);
 
   const fmt = (n) => "₹" + (n || 0).toLocaleString("en-IN");
 
@@ -45,19 +38,8 @@ export default function SalaryCalculator() {
       </p>
 
       <div className="glass rounded-2xl p-5 border border-white/8 mb-6">
-        <label className="text-xs uppercase tracking-[0.18em] text-[#A0A0B5]">Pick an exam</label>
-        <select
-          data-testid="salary-exam-select"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          className="mt-1.5 w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#EF9F27]/60"
-        >
-          {exams.map((e) => (
-            <option key={e.code} value={e.code}>
-              {e.body} · {e.name}
-            </option>
-          ))}
-        </select>
+        <label className="text-xs uppercase tracking-[0.18em] text-[#A0A0B5] mb-1.5 block">Pick an exam</label>
+        <ExamPicker value={code} onChange={setCode} testid="salary-exam-select" />
       </div>
 
       {loading && <div className="text-[#A0A0B5] flex items-center gap-2"><Loader2 className="animate-spin" size={14} /> Calculating...</div>}

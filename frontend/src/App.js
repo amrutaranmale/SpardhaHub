@@ -11,6 +11,7 @@ import SmartRoadmap from "@/pages/dashboard/SmartRoadmap";
 import ProgressTracker from "@/pages/dashboard/ProgressTracker";
 import CurrentAffairs from "@/pages/dashboard/CurrentAffairs";
 import ExamAlerts from "@/pages/dashboard/ExamAlerts";
+import ExamNews from "@/pages/dashboard/ExamNews";
 import Lessons from "@/pages/dashboard/Lessons";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -40,6 +41,7 @@ function App() {
               <Route path="eligibility" element={<EligibilityChecker />} />
               <Route path="salary" element={<SalaryCalculator />} />
               <Route path="alerts" element={<ExamAlerts />} />
+              <Route path="news" element={<ExamNews />} />
               <Route path="lessons" element={<Lessons />} />
             </Route>
           </Routes>

@@ -5,6 +5,7 @@ import {
   Scale,
   Plane,
   Shield,
+  Cpu,
   ArrowUpRight,
   CheckCircle2,
 } from "lucide-react";
@@ -64,6 +65,22 @@ const CATEGORIES = [
       { code: "SSC Tech", name: "Short Service Commission (Tech)", tag: "Men & Women" },
       { code: "JAG", name: "Judge Advocate General Entry", tag: "LLB Graduates" },
       { code: "NCC Special", name: "Army NCC Special Entry", tag: "NCC 'C' Cert. Holders" },
+    ],
+  },
+  {
+    body: "Engineering",
+    full: "Engineering, PSU & Diploma Exams",
+    icon: Cpu,
+    accent: "#5EC4B6",
+    blurb: "GATE, ISRO, BARC, DRDO, SSC JE, State AE/JE and Polytechnic entries.",
+    exams: [
+      { code: "GATE", name: "Graduate Aptitude Test in Engineering", tag: "B.Tech / M.Sc." },
+      { code: "ISRO SC", name: "ISRO Scientist/Engineer SC", tag: "BE/B.Tech 65%+" },
+      { code: "BARC OCES", name: "BARC OCES / DGFS", tag: "Atomic Energy" },
+      { code: "DRDO SET", name: "DRDO Scientist Entry Test", tag: "Defence R&D" },
+      { code: "SSC JE", name: "SSC Junior Engineer", tag: "Diploma / BE" },
+      { code: "State AE/JE", name: "State Engineering Services", tag: "Civil · Mech · Elec" },
+      { code: "Diploma", name: "Polytechnic Diploma Entrance", tag: "After Class 10" },
     ],
   },
 ];

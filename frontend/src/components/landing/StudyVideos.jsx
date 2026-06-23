@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { BookOpen, ArrowUpRight, ListChecks, Target, Library, Clock3 } from "lucide-react";
+import { BookOpen, ArrowUpRight, ListChecks, Target, Library, Clock3, CheckCircle2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -8,6 +8,8 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 // Self-contained study lessons (works even when YouTube/external sites are blocked).
 // Each lesson has: syllabus topics, exam strategy points, recommended books.
@@ -261,9 +263,88 @@ const LESSONS = [
     strategy: ["Apply in your final NCC year", "Master 5-stage SSB process", "Develop public speaking & leadership", "Maintain BMI & basic endurance"],
     books: ["NCC Cadet Handbook", "SSB OLQ — N.K. Natarajan", "Defence News digests"],
   },
+
+  // ---------- Engineering / PSU / Diploma ----------
+  {
+    id: "gate",
+    title: "GATE — Strategy for Top Rank",
+    body: "Engineering",
+    subject: "Graduate Aptitude Test",
+    duration: "9-month plan",
+    accent: "#5EC4B6",
+    topics: ["Stream core (CS/EC/ME/CE/EE)", "Engineering Mathematics", "General Aptitude", "Numerical Answer Type questions", "Subject-wise PYQs (20 years)", "Virtual calculator practice"],
+    strategy: ["Pick 8-10 high-weightage subjects per stream", "Solve 20y PYQs topic-wise before mocks", "Build a formula notebook from Day 1", "Take 1 sectional + 1 full mock per week"],
+    books: ["Made Easy / IES Master Postal", "Engineering Mathematics — B.S. Grewal", "GATE PYQs — Made Easy / GKP", "Higher Engg Mathematics — H.K. Dass"],
+  },
+  {
+    id: "isro-sc",
+    title: "ISRO Scientist/Engineer SC — Roadmap",
+    body: "Engineering",
+    subject: "ISRO Recruitment",
+    duration: "Course",
+    accent: "#5EC4B6",
+    topics: ["EC / CS / ME core subjects", "Signals, Control, Digital Electronics (EC)", "OS, DBMS, Algorithms (CS)", "Thermo, Fluid Mech, ToM (ME)", "Aerospace orientation"],
+    strategy: ["Use GATE prep as base, layer ISRO PYQs", "Aerospace + space tech awareness", "Strong on numerical + concept", "Project explanation drill for interview"],
+    books: ["GATE standard texts", "ISRO PYQs (last 10 years)", "Aerospace Engineering — Anderson"],
+  },
+  {
+    id: "barc-oces",
+    title: "BARC OCES/DGFS — Atomic Energy Career",
+    body: "Engineering",
+    subject: "BARC Training Scheme",
+    duration: "Course",
+    accent: "#5EC4B6",
+    topics: ["Stream core (Mech / Chem / Elec / Met / Civil / CS)", "Online screening test", "Interview + viva", "Nuclear engineering basics"],
+    strategy: ["GATE-level prep + BARC PYQs", "Read about atomic energy programs (Kalpakkam, Tarapur)", "Polish project & B.Tech major", "Interview: be ready for fundamentals + research aptitude"],
+    books: ["GATE stream books", "Nuclear Reactor Engineering — Lamarsh", "BARC PYQ compilations"],
+  },
+  {
+    id: "drdo-set",
+    title: "DRDO SET — Scientist 'B' Entry",
+    body: "Engineering",
+    subject: "Defence R&D Organization",
+    duration: "Course",
+    accent: "#5EC4B6",
+    topics: ["Aerospace / EC / ME / CS stream papers", "Engineering Maths + General Aptitude", "Defence technology updates", "Personal interview"],
+    strategy: ["GATE syllabus first, then DRDO-specific PYQs", "Brush up on missiles, radar, drones tech", "Project deep-dive prep", "Mock interviews for technical viva"],
+    books: ["Made Easy stream books", "DRDO PYQs", "Defence Reviews & DRDO newsletter"],
+  },
+  {
+    id: "ssc-je",
+    title: "SSC Junior Engineer — Diploma to Govt Job",
+    body: "Engineering",
+    subject: "SSC JE (CE/ME/EE)",
+    duration: "Course",
+    accent: "#5EC4B6",
+    topics: ["Civil / Mech / Electrical technical subjects", "General Intelligence & Reasoning", "General Awareness", "Paper II Conventional"],
+    strategy: ["Stream technical: 1 chapter/day from Diploma syllabus", "Conventional paper: 2 questions/day with timer", "PYQs of last 10 cycles must be memorized", "Reasoning + GA: 30 min daily"],
+    books: ["SSC JE — Made Easy", "RS Khurmi (Mech)", "BC Punmia (Civil)", "Lucent's GK + Reasoning by R.S. Aggarwal"],
+  },
+  {
+    id: "state-ae-je",
+    title: "State Engineering Services (AE/JE)",
+    body: "Engineering",
+    subject: "State PSC Engineering",
+    duration: "Course",
+    accent: "#5EC4B6",
+    topics: ["State-specific technical syllabus", "Stream depth (CE / ME / EE)", "Regional language + state GK", "Interview / conventional paper"],
+    strategy: ["Get state-specific previous papers (10+ years)", "Made Easy + IES Master + stream-wise notes", "Regional language: 1 hour/day", "State GK: focus on state budget, schemes, geography"],
+    books: ["Made Easy stream books", "State PSC PYQs", "State Year Book / Manorama"],
+  },
+  {
+    id: "diploma",
+    title: "Polytechnic Diploma Entrance",
+    body: "Engineering",
+    subject: "After Class 10",
+    duration: "4-month plan",
+    accent: "#5EC4B6",
+    topics: ["Class 10 Mathematics (NCERT)", "Physics & Chemistry (NCERT Class 10)", "English & comprehension", "Logical reasoning", "State-specific GK"],
+    strategy: ["NCERT first, then state board books", "Daily 30 Maths + 20 Physics MCQs", "Mock test every 10 days", "Revise formulas weekly"],
+    books: ["NCERT Class 10 Maths/Phy/Chem", "JEECUP / CEEP / DET Polytechnic — Arihant", "Lucent's GK"],
+  },
 ];
 
-const FILTERS = ["All", "UPSC", "MPSC", "IAF", "Indian Army"];
+const FILTERS = ["All", "UPSC", "MPSC", "IAF", "Indian Army", "Engineering"];
 
 function CustomThumb({ v }) {
   const seed = (v.id.charCodeAt(0) + v.id.length * 7) % 360;
@@ -359,6 +440,8 @@ function LessonCard({ v, index, onOpen }) {
 }
 
 function LessonModal({ lesson, onOpenChange }) {
+  const { user } = useAuth();
+  const nav = useNavigate();
   if (!lesson) return null;
   return (
     <Dialog open={!!lesson} onOpenChange={(o) => !o && onOpenChange(null)}>
@@ -450,14 +533,30 @@ function LessonModal({ lesson, onOpenChange }) {
           </section>
 
           <div className="pt-2">
-            <a
-              href="#signup"
-              onClick={() => onOpenChange(null)}
-              className="btn-gold inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl"
-            >
-              Save lesson · Sign up free
-              <ArrowUpRight size={16} />
-            </a>
+            {user ? (
+              <button
+                data-testid="lesson-modal-cta"
+                onClick={() => {
+                  onOpenChange(null);
+                  nav("/dashboard/progress");
+                }}
+                className="btn-gold inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl"
+              >
+                <CheckCircle2 size={16} /> Track in Progress
+              </button>
+            ) : (
+              <button
+                data-testid="lesson-modal-cta"
+                onClick={() => {
+                  onOpenChange(null);
+                  nav("/signup");
+                }}
+                className="btn-gold inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl"
+              >
+                Save lesson · Sign up free
+                <ArrowUpRight size={16} />
+              </button>
+            )}
           </div>
         </div>
       </DialogContent>
