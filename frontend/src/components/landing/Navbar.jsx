@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Logo from "@/components/landing/Logo";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { label: "Features", href: "#features" },
@@ -13,6 +15,7 @@ const navItems = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -57,20 +60,32 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <a
-            href="#signup"
-            data-testid="nav-signin"
-            className="text-sm text-[#C7C7D6] hover:text-white transition-colors"
-          >
-            Sign in
-          </a>
-          <a
-            href="#signup"
-            data-testid="nav-cta"
-            className="btn-gold inline-flex items-center text-sm font-semibold px-5 py-2.5 rounded-full"
-          >
-            Get Started
-          </a>
+          {user ? (
+            <Link
+              to="/dashboard"
+              data-testid="nav-dashboard"
+              className="btn-gold inline-flex items-center text-sm font-semibold px-5 py-2.5 rounded-full"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/signin"
+                data-testid="nav-signin"
+                className="text-sm text-[#C7C7D6] hover:text-white transition-colors"
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/signup"
+                data-testid="nav-cta"
+                className="btn-gold inline-flex items-center text-sm font-semibold px-5 py-2.5 rounded-full"
+              >
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -104,13 +119,13 @@ export default function Navbar() {
                   {it.label}
                 </a>
               ))}
-              <a
-                href="#signup"
+              <Link
+                to={user ? "/dashboard" : "/signup"}
                 onClick={() => setOpen(false)}
                 className="btn-gold inline-flex items-center justify-center text-sm font-semibold px-5 py-3 rounded-full"
               >
-                Get Started
-              </a>
+                {user ? "Dashboard" : "Get Started"}
+              </Link>
             </div>
           </motion.div>
         )}

@@ -1,0 +1,45 @@
+{
+  "summary": "End-to-end testing of SpardhaHub functional app (auth + 7 tool pages + lessons). Backend: 20/20 pytest tests pass on /api/auth, /api/exams, /api/eligibility, /api/salary, /api/roadmap, /api/alerts, /api/current-affairs, /api/progress. Frontend: 24/24 user-flow checks pass after re-verifying — signup, signin, protected route, dashboard tiles, sidebar nav, eligibility, salary, roadmap, progress (toggle + persistence after reload), current affairs, alerts (20 items), study lessons (22 cards + modal with syllabus/strategy/books), logout clears sh_token. Two soft UX issues found.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "LessonModal CTA", "issue": "Inside dashboard lessons modal the CTA reads 'Save lesson · Sign up free' even when the user is already authenticated. The 'Sign up free' phrasing is misleading for logged-in users and the action appears to be a no-op (no toast, no progress save).", "selector": "[data-testid='lesson-modal'] button:has-text('Sign up free')", "priority": "MEDIUM"},
+      {"component": "Dashboard 'Next exams' / Exam Alerts", "issue": "Many exams show negative days_left (e.g. '-72 days left', '-121 days left'). Backend computes days_left from container clock; the static EXAMS dates (Apr/May 2026) are already in the past for the runtime clock, so 17/20 alerts have hidden 'days left' and the Overview tile claims 'UPCOMING EXAMS: 3'. Either filter/exclude past exams in the alerts list, format negative as 'Past' or 'Result awaited', or update exam_data dates to 2027 cycle.", "selector": "[data-testid='alerts-page']", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Dashboard Overview", "issues": ["Stat tile 'UPCOMING EXAMS' shows 3 (only future-dated exams counted) which contradicts the 20 exams visible elsewhere — confusing because most exam_data dates are stale."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_spardhahub.py",
+    "/app/test_reports/pytest/spardhahub_results.xml"
+  ],
+  "action_items": [
+    "Fix LessonModal CTA copy when user is authenticated — replace 'Save lesson · Sign up free' with an authenticated action (e.g. 'Mark as completed' that calls POST /api/progress, or simply 'Got it') and remove the 'Sign up free' suffix.",
+    "Refresh exam_data dates to a forward cycle (or compute relative dates) so the days_left countdown and Overview 'Upcoming exams' tile show meaningful values. Currently 17/20 alerts hide 'days left' because dates are stale.",
+    "Optional polish: pydantic EmailStr rejects '.test' TLD (RFC reserved). If you want to allow test domains, switch to a looser validator; otherwise no action needed."
+  ],
+  "critical_code_review_comments": [
+    "server.py is mixed concerns (auth + routers + data lookups) — at 367 lines it's still readable but consider splitting auth/routes when next feature lands.",
+    "Salary calculator hard-codes 7th CPC DA at 46% and HRA tiers (27/18/9) — extract to constants/module-level for maintainability and easy future updates.",
+    "Alerts endpoint computes days_left on every call from container clock — acceptable but means UI breaks once dates pass. Consider filtering out past exams server-side or marking status.",
+    "/api/progress endpoint has no DELETE method; toggling a topic OFF currently upserts completed=false (works), but a real DELETE for cleanup would be cleaner.",
+    "JWT_SECRET present in committed .env — fine for preview, but flag for prod rotation.",
+    "All endpoints exclude Mongo _id correctly via projection — good.",
+    "data-testid coverage is excellent across all 7 dashboard pages and the lesson modal."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_spardhahub.py (new)"
+  ],
+  "success_rate": {"backend": "100% (20/20 pytest)", "frontend": "100% (24/24 flow checks)"},
+  "test_credentials": "Tests register fresh unique users per run (agent_<uuid>@example.com / test1234). Pre-seeded amruta@test.com may or may not exist in current DB but was not used by tests. Note: emails ending with '.test' TLD are rejected by pydantic EmailStr.",
+  "seed_data_creation": "Each test run creates 1-2 throwaway user docs in db.users + a few rows in db.progress (TEST_topic_* prefix). No cleanup performed.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 7 dashboard pages and lessons modal work. Re-test only if either (a) main agent changes the LessonModal CTA for auth users, or (b) exam_data dates are refreshed and days_left logic re-verified. Pytest file at /app/backend/tests/test_spardhahub.py is the regression suite; run with `pytest /app/backend/tests/test_spardhahub.py -v`.",
+  "rca of the issue": "LessonModal CTA bug: StudyVideos.jsx was reused inside DashboardLessons.jsx without gating the CTA by auth state — the original landing-page component always shows 'Sign up free'. Stale dates: exam_data.py uses fixed 2026 dates while the runtime container clock is past several of them, so server-side days_left returns negative numbers; UI then hides 'days left' label (line 41 ExamAlerts.jsx: a.days_left >= 0)."
+}

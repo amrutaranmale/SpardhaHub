@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Play, ArrowRight, Sparkles, ShieldCheck } from "lucide-react";
-import axios from "axios";
-import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 import HeroBackground from "@/components/landing/HeroBackground";
 import DemoModal from "@/components/landing/DemoModal";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+import { useAuth } from "@/contexts/AuthContext";
 
 const container = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
 };
 const item = {
   hidden: { opacity: 0, y: 28 },
@@ -21,28 +16,11 @@ const item = {
 };
 
 export default function Hero() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
+  const nav = useNavigate();
+  const { user } = useAuth();
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast.error("Please enter a valid email address");
-      return;
-    }
-    try {
-      setLoading(true);
-      const res = await axios.post(`${API}/signup`, { email, source: "hero_cta" });
-      toast.success(res.data?.message || "You're on the list!");
-      setEmail("");
-    } catch (err) {
-      const msg = err?.response?.data?.detail || "Something went wrong. Try again.";
-      toast.error(typeof msg === "string" ? msg : "Signup failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const goPrimary = () => nav(user ? "/dashboard" : "/signup");
 
   return (
     <section
@@ -58,7 +36,6 @@ export default function Hero() {
         animate="show"
         className="relative z-10 max-w-5xl mx-auto text-center"
       >
-        {/* Eyebrow pill */}
         <motion.div variants={item} className="flex justify-center mb-7">
           <span
             data-testid="hero-eyebrow"
@@ -69,7 +46,6 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* Headline */}
         <motion.h1
           variants={item}
           data-testid="hero-headline"
@@ -82,7 +58,6 @@ export default function Hero() {
           <span className="text-gold-gradient italic">More</span>
         </motion.h1>
 
-        {/* Sub */}
         <motion.p
           variants={item}
           data-testid="hero-subheadline"
@@ -92,56 +67,33 @@ export default function Hero() {
           Built for serious aspirants, free for everyone.
         </motion.p>
 
-        {/* Email form + CTAs */}
-        <motion.form
-          variants={item}
-          id="signup"
-          onSubmit={onSubmit}
-          noValidate
-          className="mt-10 w-full max-w-xl mx-auto"
-          data-testid="hero-signup-form"
-        >
-          <div className="flex flex-col sm:flex-row gap-3 p-1.5 sm:p-2 rounded-2xl glass-strong">
-            <input
-              data-testid="hero-email-input"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              className="flex-1 bg-transparent px-4 py-3 text-white placeholder-[#7a7a92] focus:outline-none rounded-xl"
-              autoComplete="email"
-            />
-            <button
-              data-testid="hero-primary-cta"
-              type="submit"
-              disabled={loading}
-              className="btn-gold inline-flex items-center justify-center gap-2 font-semibold px-6 py-3 rounded-xl whitespace-nowrap disabled:opacity-60"
-            >
-              {loading ? "Joining..." : "Start Your Journey Free"}
-              {!loading && <ArrowRight size={16} />}
-            </button>
-          </div>
-
-          <div className="mt-5 flex items-center justify-center gap-4">
-            <button
-              type="button"
-              data-testid="hero-demo-cta"
-              onClick={() => setDemoOpen(true)}
-              className="btn-outline-soft inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm"
-            >
-              <span className="w-7 h-7 rounded-full bg-white/8 inline-flex items-center justify-center">
-                <Play size={12} className="text-[#EF9F27] ml-[1px]" fill="#EF9F27" />
-              </span>
-              Watch Demo
-            </button>
-            <span className="hidden sm:inline-flex items-center gap-2 text-xs text-[#A0A0B5]">
-              <ShieldCheck size={14} className="text-[#7F77DD]" />
-              No credit card · Free forever
+        <motion.div variants={item} id="signup" className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button
+            data-testid="hero-primary-cta"
+            onClick={goPrimary}
+            className="btn-gold inline-flex items-center justify-center gap-2 font-semibold px-6 py-3.5 rounded-xl whitespace-nowrap"
+          >
+            {user ? "Go to Dashboard" : "Start Your Journey Free"}
+            <ArrowRight size={16} />
+          </button>
+          <button
+            type="button"
+            data-testid="hero-demo-cta"
+            onClick={() => setDemoOpen(true)}
+            className="btn-outline-soft inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm"
+          >
+            <span className="w-7 h-7 rounded-full bg-white/8 inline-flex items-center justify-center">
+              <Play size={12} className="text-[#EF9F27] ml-[1px]" fill="#EF9F27" />
             </span>
-          </div>
-        </motion.form>
+            Watch Demo
+          </button>
+        </motion.div>
 
-        {/* Trust strip */}
+        <motion.div variants={item} className="mt-5 inline-flex items-center gap-2 text-xs text-[#A0A0B5]">
+          <ShieldCheck size={14} className="text-[#7F77DD]" />
+          No credit card · Free forever · Made in India 🇮🇳
+        </motion.div>
+
         <motion.div
           variants={item}
           className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] uppercase tracking-[0.22em] text-[#7a7a92]"
