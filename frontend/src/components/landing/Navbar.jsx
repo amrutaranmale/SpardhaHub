@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Logo from "@/components/landing/Logo";
 
 const navItems = [
   { label: "Features", href: "#features" },
+  { label: "Videos", href: "#videos" },
   { label: "Exams", href: "#countdown" },
   { label: "Stats", href: "#stats" },
-  { label: "FAQ", href: "#faq" },
 ];
 
 export default function Navbar() {
@@ -30,12 +31,13 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         {/* Logo */}
-        <a href="#top" data-testid="nav-logo" className="flex items-center gap-2 group">
-          <span className="font-serif-display text-2xl tracking-tight">
+        <a href="#top" data-testid="nav-logo" className="flex items-center gap-3 group">
+          <Logo size={36} />
+          <span className="font-serif-display text-2xl tracking-tight leading-none">
             <span className="text-white">Spardha</span>
             <span className="text-gold-gradient">Hub</span>
           </span>
-          <span className="hidden md:inline-block text-[10px] uppercase tracking-[0.18em] text-[#A0A0B5] ml-2 border-l border-white/15 pl-2">
+          <span className="hidden lg:inline-block text-[10px] uppercase tracking-[0.18em] text-[#A0A0B5] ml-2 border-l border-white/15 pl-2">
             Your Goal · Our Path
           </span>
         </a>

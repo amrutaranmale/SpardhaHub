@@ -4,6 +4,7 @@ import Hero from "@/components/landing/Hero";
 import CountdownStrip from "@/components/landing/CountdownStrip";
 import StatsBar from "@/components/landing/StatsBar";
 import Features from "@/components/landing/Features";
+import StudyVideos from "@/components/landing/StudyVideos";
 import ClosingCTA from "@/components/landing/ClosingCTA";
 import Footer from "@/components/landing/Footer";
 
@@ -18,6 +19,7 @@ export default function Landing() {
       <CountdownStrip />
       <StatsBar />
       <Features />
+      <StudyVideos />
       <ClosingCTA />
       <Footer />
     </main>

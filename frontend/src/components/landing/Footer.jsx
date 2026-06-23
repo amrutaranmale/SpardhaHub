@@ -1,5 +1,6 @@
 import React from "react";
 import { Github, Twitter, Instagram, Youtube } from "lucide-react";
+import Logo from "@/components/landing/Logo";
 
 export default function Footer() {
   return (
@@ -9,9 +10,12 @@ export default function Footer() {
     >
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-10">
         <div className="col-span-2">
-          <div className="font-serif-display text-2xl tracking-tight">
-            <span className="text-white">Spardha</span>
-            <span className="text-gold-gradient">Hub</span>
+          <div className="flex items-center gap-3">
+            <Logo size={32} />
+            <div className="font-serif-display text-2xl tracking-tight leading-none">
+              <span className="text-white">Spardha</span>
+              <span className="text-gold-gradient">Hub</span>
+            </div>
           </div>
           <p className="text-sm text-[#A0A0B5] mt-3 max-w-xs leading-relaxed">
             Your Goal. Our Path. India&apos;s most-loved exam preparation
