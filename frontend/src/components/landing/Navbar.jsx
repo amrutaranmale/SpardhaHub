@@ -5,8 +5,8 @@ import Logo from "@/components/landing/Logo";
 
 const navItems = [
   { label: "Features", href: "#features" },
+  { label: "Exams", href: "#exams" },
   { label: "Videos", href: "#videos" },
-  { label: "Exams", href: "#countdown" },
   { label: "Stats", href: "#stats" },
 ];
 
