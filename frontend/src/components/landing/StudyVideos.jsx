@@ -1,156 +1,126 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { Play, Clock, ArrowUpRight } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Play, Clock, ArrowUpRight, BookOpen, ExternalLink } from "lucide-react";
 
-// Curated, popular, free study videos for Indian competitive exams.
-// Thumbnails are pulled directly from YouTube's CDN (i.ytimg.com).
+// All entries are study-topic queries. Clicking a card opens a YouTube SEARCH
+// for that exact lesson — guaranteeing aspirants always land on real, relevant
+// study content (no risk of hardcoded IDs pointing to wrong videos).
 const VIDEOS = [
-  {
-    id: "ZK3O402wf1c",
-    title: "UPSC CSE Strategy: How to start from Day 1",
-    channel: "Unacademy",
-    subject: "UPSC",
-    duration: "18:42",
-    accent: "#EF9F27",
-  },
-  {
-    id: "kWl2tj4Mq3M",
-    title: "Indian Polity Crash Course — Laxmikanth in 1 hour",
-    channel: "StudyIQ IAS",
-    subject: "UPSC · Polity",
-    duration: "58:10",
-    accent: "#7F77DD",
-  },
-  {
-    id: "tgbNymZ7vqY",
-    title: "MPSC Rajyaseva Complete Roadmap 2026",
-    channel: "MPSC Officer Aspirants",
-    subject: "MPSC",
-    duration: "24:55",
-    accent: "#5EC4B6",
-  },
-  {
-    id: "0nbkaYsR94c",
-    title: "SSC CGL — Quant Tricks for Tier-I",
-    channel: "Adda247",
-    subject: "SSC · Quant",
-    duration: "32:18",
-    accent: "#EF9F27",
-  },
-  {
-    id: "JGwWNGJdvx8",
-    title: "Daily Current Affairs · One-shot Revision",
-    channel: "Drishti IAS",
-    subject: "Current Affairs",
-    duration: "21:07",
-    accent: "#7F77DD",
-  },
-  {
-    id: "1aA1WGON49E",
-    title: "CA Foundation — Accounting Basics Made Simple",
-    channel: "CA Wallah",
-    subject: "CA",
-    duration: "45:30",
-    accent: "#F7C97E",
-  },
-  {
-    id: "fJ9rUzIMcZQ",
-    title: "IBPS PO Reasoning — Puzzle Mastery",
-    channel: "Career Power",
-    subject: "Banking",
-    duration: "38:12",
-    accent: "#7F77DD",
-  },
-  {
-    id: "qpRkdJTMxgM",
-    title: "RRB NTPC — General Awareness One-shot",
-    channel: "Wifistudy",
-    subject: "Railway",
-    duration: "01:12:40",
-    accent: "#5EC4B6",
-  },
-  {
-    id: "Y8Tko2YC5hA",
-    title: "NDA Maths — Trigonometry in 30 minutes",
-    channel: "Defence Academy",
-    subject: "Defence · NDA",
-    duration: "29:50",
-    accent: "#EF9F27",
-  },
-  {
-    id: "9bZkp7q19f0",
-    title: "CTET Paper 1 — Child Development & Pedagogy",
-    channel: "Teach Well",
-    subject: "Teaching · CTET",
-    duration: "44:18",
-    accent: "#F7C97E",
-  },
-  {
-    id: "M7lc1UVf-VE",
-    title: "RBI Grade B — ESI & Finance Strategy",
-    channel: "Oliveboard",
-    subject: "Banking · RBI",
-    duration: "26:33",
-    accent: "#7F77DD",
-  },
-  {
-    id: "hY7m5jjJ9mM",
-    title: "UGC NET Paper 1 — Research Aptitude",
-    channel: "Higher Education India",
-    subject: "Teaching · NET",
-    duration: "36:05",
-    accent: "#5EC4B6",
-  },
+  // UPSC
+  { topic: "UPSC CSE Strategy from Day 1", channel: "Top UPSC Educators", subject: "UPSC CSE", duration: "Playlist", accent: "#EF9F27" },
+  { topic: "Indian Polity Laxmikanth Crash Course", channel: "StudyIQ IAS", subject: "UPSC CSE", duration: "Playlist", accent: "#EF9F27" },
+  { topic: "Daily Current Affairs UPSC Drishti IAS", channel: "Drishti IAS", subject: "UPSC GS", duration: "Daily", accent: "#EF9F27" },
+  { topic: "UPSC CDS Maths English Strategy", channel: "SSB Crack", subject: "UPSC CDS", duration: "Course", accent: "#EF9F27" },
+  { topic: "UPSC NDA Maths preparation Class 11 12", channel: "Defence Direct", subject: "UPSC NDA", duration: "Course", accent: "#EF9F27" },
+  { topic: "UPSC ESE IES Engineering Services strategy", channel: "Made Easy", subject: "UPSC ESE/IES", duration: "Course", accent: "#EF9F27" },
+  { topic: "UPSC CAPF AC Assistant Commandant preparation", channel: "Drishti IAS", subject: "UPSC CAPF", duration: "Course", accent: "#EF9F27" },
+  { topic: "UPSC CMS Combined Medical Services preparation", channel: "Marrow / DBMCI", subject: "UPSC CMS", duration: "Course", accent: "#EF9F27" },
+  { topic: "UPSC IFoS Indian Forest Service strategy", channel: "Forest Aspirants", subject: "UPSC IFoS", duration: "Course", accent: "#EF9F27" },
+
+  // MPSC
+  { topic: "MPSC Rajyaseva complete roadmap 2026", channel: "Unacademy MPSC", subject: "MPSC Rajyaseva", duration: "Roadmap", accent: "#7F77DD" },
+  { topic: "MPSC Group B PSI STI ASO strategy", channel: "Mission MPSC", subject: "MPSC Group B", duration: "Course", accent: "#7F77DD" },
+  { topic: "MPSC Group C Clerk Typist preparation Marathi", channel: "Spardha Pariksha", subject: "MPSC Group C", duration: "Course", accent: "#7F77DD" },
+  { topic: "MPSC Technical Engineering Services exam", channel: "Engineering Aspirants Marathi", subject: "MPSC Technical", duration: "Course", accent: "#7F77DD" },
+  { topic: "MPSC Subordinate Services exam preparation Marathi", channel: "MPSC Officer Aspirants", subject: "MPSC Subordinate", duration: "Course", accent: "#7F77DD" },
+
+  // IAF
+  { topic: "AFCAT Air Force preparation full syllabus", channel: "SSB Crack", subject: "IAF AFCAT", duration: "Course", accent: "#5EC4B6" },
+  { topic: "IAF Fast Track Selection FTS process", channel: "Defence Career", subject: "IAF FTS", duration: "Guide", accent: "#5EC4B6" },
+  { topic: "Indian Air Force NCC Special Entry SSB", channel: "NCC Cadets India", subject: "IAF NCC", duration: "Guide", accent: "#5EC4B6" },
+  { topic: "IAF Meteorology Entry Met Branch officer", channel: "Defence Insider", subject: "IAF Meteorology", duration: "Guide", accent: "#5EC4B6" },
+
+  // Indian Army
+  { topic: "Indian Army TGC Technical Graduate Course preparation", channel: "Defence Academy", subject: "Army TGC", duration: "Course", accent: "#F7C97E" },
+  { topic: "Indian Army SSC Tech Short Service Commission", channel: "Cadet Connect", subject: "Army SSC Tech", duration: "Course", accent: "#F7C97E" },
+  { topic: "Indian Army JAG Entry LLB graduates SSB", channel: "JAG Aspirants", subject: "Army JAG", duration: "Course", accent: "#F7C97E" },
+  { topic: "Indian Army NCC Special Entry process SSB", channel: "NCC Cadets India", subject: "Army NCC", duration: "Course", accent: "#F7C97E" },
 ];
 
-function thumbUrl(id) {
-  return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+function ytSearchUrl(q) {
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
 }
 
-function VideoCard({ v, index, onPlay }) {
+function CustomThumb({ v }) {
+  const seed = (v.topic.charCodeAt(0) + v.topic.length) % 360;
   return (
-    <motion.button
-      data-testid={`video-card-${v.id}`}
-      onClick={() => onPlay(v)}
+    <div
+      className="absolute inset-0 overflow-hidden"
+      style={{
+        background: `linear-gradient(${seed}deg, #14142a 0%, #20203f 50%, #14142a 100%)`,
+      }}
+    >
+      <div
+        className="absolute inset-0 opacity-50"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "30px 30px",
+        }}
+      />
+      <div
+        className="absolute -top-16 -left-10 w-64 h-64 rounded-full opacity-50"
+        style={{
+          background: `radial-gradient(circle, ${v.accent}55, transparent 60%)`,
+          filter: "blur(40px)",
+        }}
+      />
+      <div
+        className="absolute -bottom-20 -right-10 w-72 h-72 rounded-full opacity-45"
+        style={{
+          background: `radial-gradient(circle, #7F77DD55, transparent 60%)`,
+          filter: "blur(40px)",
+        }}
+      />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span
+          className="font-serif-display text-[58px] md:text-[72px] font-black tracking-tight opacity-[0.10] select-none uppercase whitespace-nowrap"
+          style={{ color: v.accent }}
+        >
+          {v.subject.split(" ")[0]}
+        </span>
+      </div>
+      <div className="absolute bottom-3 left-3 flex items-center gap-1.5 z-10">
+        <BookOpen size={12} style={{ color: v.accent }} />
+        <span className="text-[10px] uppercase tracking-widest text-white/80">
+          Masterclass
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function VideoCard({ v, index }) {
+  return (
+    <motion.a
+      data-testid={`video-card-${v.subject.toLowerCase().replace(/\s+/g, "-")}-${index}`}
+      href={ytSearchUrl(v.topic)}
+      target="_blank"
+      rel="noopener noreferrer"
       initial={{ opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay: (index % 3) * 0.08, ease: [0.2, 0.8, 0.2, 1] }}
+      transition={{ duration: 0.55, delay: (index % 4) * 0.06, ease: [0.2, 0.8, 0.2, 1] }}
       whileHover={{ y: -6 }}
-      className="group text-left glass rounded-2xl overflow-hidden border border-white/8 hover:border-white/20 transition-all"
+      className="group text-left glass rounded-2xl overflow-hidden border border-white/8 hover:border-white/20 transition-all block"
     >
       <div className="relative aspect-video overflow-hidden">
-        <img
-          src={thumbUrl(v.id)}
-          alt={v.title}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c1c] via-[#0c0c1c]/30 to-transparent" />
-        {/* Subject pill */}
+        <CustomThumb v={v} />
+
         <span
-          className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full backdrop-blur-md"
+          className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full backdrop-blur-md z-10"
           style={{
-            background: "rgba(20,20,42,0.6)",
-            border: `1px solid ${v.accent}40`,
+            background: "rgba(20,20,42,0.7)",
+            border: `1px solid ${v.accent}55`,
             color: v.accent,
           }}
         >
           {v.subject}
         </span>
-        {/* Duration */}
-        <span className="absolute top-3 right-3 text-[10px] tracking-wider px-2 py-0.5 rounded-md bg-black/55 text-white inline-flex items-center gap-1">
+        <span className="absolute top-3 right-3 z-10 text-[10px] tracking-wider px-2 py-0.5 rounded-md bg-black/60 text-white inline-flex items-center gap-1">
           <Clock size={10} /> {v.duration}
         </span>
-        {/* Play button */}
-        <span className="absolute inset-0 flex items-center justify-center">
+        <span className="absolute inset-0 flex items-center justify-center z-10">
           <span
             className="w-14 h-14 rounded-full bg-gradient-to-br from-[#EF9F27] to-[#F7C97E] shadow-[0_0_50px_-8px_rgba(239,159,39,0.6)] flex items-center justify-center group-hover:scale-110 transition-transform"
             aria-hidden
@@ -163,23 +133,30 @@ function VideoCard({ v, index, onPlay }) {
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-serif-display text-base md:text-lg leading-snug text-white group-hover:text-[#F7C97E] transition-colors">
-            {v.title}
+            {v.topic}
           </h3>
-          <ArrowUpRight
-            size={16}
-            className="text-[#7F77DD] opacity-0 group-hover:opacity-100 -translate-y-1 group-hover:translate-y-0 transition-all flex-shrink-0 mt-1"
+          <ExternalLink
+            size={14}
+            className="text-[#7F77DD] opacity-0 group-hover:opacity-100 -translate-y-1 group-hover:translate-y-0 transition-all flex-shrink-0 mt-1.5"
           />
         </div>
         <p className="text-xs text-[#A0A0B5] mt-2 uppercase tracking-[0.18em]">
           {v.channel}
         </p>
       </div>
-    </motion.button>
+    </motion.a>
   );
 }
 
+const FILTERS = ["All", "UPSC", "MPSC", "IAF", "Army"];
+
 export default function StudyVideos() {
-  const [active, setActive] = useState(null);
+  const [filter, setFilter] = React.useState("All");
+
+  const filtered =
+    filter === "All"
+      ? VIDEOS
+      : VIDEOS.filter((v) => v.subject.toLowerCase().includes(filter.toLowerCase()));
 
   return (
     <section
@@ -187,7 +164,6 @@ export default function StudyVideos() {
       data-testid="videos-section"
       className="relative py-28 md:py-32 px-6 lg:px-10"
     >
-      {/* Faint accent */}
       <div
         className="absolute top-20 right-0 w-[600px] h-[600px] rounded-full pointer-events-none opacity-25"
         style={{
@@ -198,19 +174,20 @@ export default function StudyVideos() {
       />
 
       <div className="max-w-7xl mx-auto relative">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <div className="max-w-2xl">
             <span className="text-xs uppercase tracking-[0.22em] text-[#7F77DD]">
               Study Library · Free
             </span>
             <h2 className="font-serif-display text-4xl md:text-5xl text-white mt-3 leading-[1.1]">
-              Lessons from{" "}
+              Masterclasses from{" "}
               <span className="text-gold-gradient italic">India&apos;s best</span>{" "}
               educators.
             </h2>
             <p className="text-base text-[#A0A0B5] mt-5 leading-relaxed">
-              Hand-picked masterclasses on UPSC, MPSC, SSC, CA and current affairs.
-              Watch, take notes, and track progress — all in one place.
+              Curated study topics for every exam — UPSC CSE to IAF AFCAT, MPSC
+              Rajyaseva to Army JAG. Click any card to instantly find the latest,
+              top-rated lessons on YouTube.
             </p>
           </div>
           <a
@@ -223,44 +200,34 @@ export default function StudyVideos() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {VIDEOS.map((v, i) => (
-            <VideoCard key={v.id} v={v} index={i} onPlay={setActive} />
+        <div className="flex flex-wrap gap-2 mb-10" data-testid="video-filters">
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              data-testid={`video-filter-${f.toLowerCase()}`}
+              onClick={() => setFilter(f)}
+              className={`text-xs uppercase tracking-[0.18em] px-4 py-2 rounded-full border transition-all ${
+                filter === f
+                  ? "bg-[#EF9F27] text-[#1a1a2e] border-transparent font-semibold"
+                  : "bg-white/[0.03] text-[#C7C7D6] border-white/10 hover:border-white/25 hover:text-white"
+              }`}
+            >
+              {f}
+            </button>
           ))}
         </div>
-      </div>
 
-      {/* Video player modal */}
-      <Dialog open={!!active} onOpenChange={(o) => !o && setActive(null)}>
-        <DialogContent
-          data-testid="video-player-modal"
-          className="max-w-4xl bg-[#131326] border border-white/10 text-white p-0 overflow-hidden"
-        >
-          <DialogHeader className="px-6 pt-6">
-            <DialogTitle className="font-serif-display text-xl md:text-2xl pr-8">
-              {active?.title}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="px-6 pb-6 pt-3">
-            {active && (
-              <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-black">
-                <iframe
-                  data-testid="video-iframe"
-                  className="absolute inset-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${active.id}?autoplay=1&rel=0`}
-                  title={active.title}
-                  frameBorder="0"
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            )}
-            <p className="text-xs text-[#A0A0B5] mt-4 uppercase tracking-[0.18em]">
-              {active?.channel} · {active?.subject} · {active?.duration}
-            </p>
-          </div>
-        </DialogContent>
-      </Dialog>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filtered.map((v, i) => (
+            <VideoCard key={`${v.subject}-${i}`} v={v} index={i} />
+          ))}
+        </div>
+        {filtered.length === 0 && (
+          <p className="text-center text-[#A0A0B5] py-12">
+            No videos in this category yet. Check back soon.
+          </p>
+        )}
+      </div>
     </section>
   );
 }
