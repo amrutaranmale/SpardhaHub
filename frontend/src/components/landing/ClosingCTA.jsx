@@ -73,6 +73,7 @@ export default function ClosingCTA() {
 
             <form
               onSubmit={onSubmit}
+              noValidate
               data-testid="closing-signup-form"
               className="mt-10 max-w-xl mx-auto"
             >

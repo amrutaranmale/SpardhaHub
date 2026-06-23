@@ -97,6 +97,7 @@ export default function Hero() {
           variants={item}
           id="signup"
           onSubmit={onSubmit}
+          noValidate
           className="mt-10 w-full max-w-xl mx-auto"
           data-testid="hero-signup-form"
         >
