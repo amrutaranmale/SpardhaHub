@@ -6,9 +6,6 @@ import Logo from "@/components/landing/Logo";
 import { useAuth } from "@/contexts/AuthContext";
 import ThemeLangToggle from "@/components/ThemeLangToggle";
 
-// Navbar ke end mein add karo:
-<ThemeLangToggle />
-
 const navItems = [
   { label: "Features", href: "#features" },
   { label: "Exams", href: "#exams" },
@@ -52,7 +49,7 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-9">
           {navItems.map((it) => (
-            <a
+            
               key={it.label}
               href={it.href}
               className="nav-link text-sm text-[#C7C7D6] hover:text-white transition-colors"
@@ -64,6 +61,9 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
+          {/* Theme + Language Toggle */}
+          <ThemeLangToggle />
+
           {user ? (
             <Link
               to="/dashboard"
@@ -114,7 +114,7 @@ export default function Navbar() {
           >
             <div className="px-6 py-6 flex flex-col gap-5">
               {navItems.map((it) => (
-                <a
+                
                   key={it.label}
                   href={it.href}
                   onClick={() => setOpen(false)}
@@ -123,6 +123,10 @@ export default function Navbar() {
                   {it.label}
                 </a>
               ))}
+              {/* Mobile Theme + Lang */}
+              <div className="py-2">
+                <ThemeLangToggle />
+              </div>
               <Link
                 to={user ? "/dashboard" : "/signup"}
                 onClick={() => setOpen(false)}
