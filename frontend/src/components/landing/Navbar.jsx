@@ -34,7 +34,6 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
-        {/* Logo */}
         <a href="#top" data-testid="nav-logo" className="flex items-center gap-3 group">
           <Logo size={36} />
           <span className="font-serif-display text-2xl tracking-tight leading-none">
@@ -46,7 +45,6 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-9">
           {navItems.map((it) => (
             
@@ -61,9 +59,7 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          {/* Theme + Language Toggle */}
           <ThemeLangToggle />
-
           {user ? (
             <Link
               to="/dashboard"
@@ -92,7 +88,6 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile toggle */}
         <button
           data-testid="nav-mobile-toggle"
           onClick={() => setOpen((v) => !v)}
@@ -123,7 +118,6 @@ export default function Navbar() {
                   {it.label}
                 </a>
               ))}
-              {/* Mobile Theme + Lang */}
               <div className="py-2">
                 <ThemeLangToggle />
               </div>
