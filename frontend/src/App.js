@@ -16,54 +16,60 @@ import StudyCenter from "@/pages/dashboard/StudyCenter";
 import EngineeringHub from "@/pages/dashboard/EngineeringHub";
 import Lessons from "@/pages/dashboard/Lessons";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { Toaster } from "sonner";
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <DashboardLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<DashboardHome />} />
-              <Route path="roadmap" element={<SmartRoadmap />} />
-              <Route path="progress" element={<ProgressTracker />} />
-              <Route path="current-affairs" element={<CurrentAffairs />} />
-              <Route path="eligibility" element={<EligibilityChecker />} />
-              <Route path="salary" element={<SalaryCalculator />} />
-              <Route path="alerts" element={<ExamAlerts />} />
-              <Route path="news" element={<ExamNews />} />
-              <Route path="study" element={<StudyCenter />} />
-              <Route path="engineering" element={<EngineeringHub />} />
-              <Route path="lessons" element={<Lessons />} />
-            </Route>
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-      <Toaster
-        theme="dark"
-        position="top-center"
-        toastOptions={{
-          style: {
-            background: "rgba(20, 20, 42, 0.95)",
-            border: "1px solid rgba(239, 159, 39, 0.25)",
-            color: "#fff",
-            backdropFilter: "blur(16px)",
-          },
-        }}
-      />
-    </div>
+    <ThemeProvider>
+      <LanguageProvider>
+        <div className="App">
+          <BrowserRouter>
+            <AuthProvider>
+              <Routes>
+                <Route path="/" element={<Landing />} />
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <DashboardLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<DashboardHome />} />
+                  <Route path="roadmap" element={<SmartRoadmap />} />
+                  <Route path="progress" element={<ProgressTracker />} />
+                  <Route path="current-affairs" element={<CurrentAffairs />} />
+                  <Route path="eligibility" element={<EligibilityChecker />} />
+                  <Route path="salary" element={<SalaryCalculator />} />
+                  <Route path="alerts" element={<ExamAlerts />} />
+                  <Route path="news" element={<ExamNews />} />
+                  <Route path="study" element={<StudyCenter />} />
+                  <Route path="engineering" element={<EngineeringHub />} />
+                  <Route path="lessons" element={<Lessons />} />
+                </Route>
+              </Routes>
+            </AuthProvider>
+          </BrowserRouter>
+          <Toaster
+            theme="dark"
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: "rgba(20, 20, 42, 0.95)",
+                border: "1px solid rgba(239, 159, 39, 0.25)",
+                color: "#fff",
+                backdropFilter: "blur(16px)",
+              },
+            }}
+          />
+        </div>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 
