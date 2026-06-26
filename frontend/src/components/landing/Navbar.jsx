@@ -4,6 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Logo from "@/components/landing/Logo";
 import { useAuth } from "@/contexts/AuthContext";
+import ThemeLangToggle from "@/components/ThemeLangToggle";
+
+// Navbar ke end mein add karo:
+<ThemeLangToggle />
 
 const navItems = [
   { label: "Features", href: "#features" },
